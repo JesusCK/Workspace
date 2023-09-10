@@ -3,6 +3,7 @@ import time
 import mysql.connector
 
 #Jesus estuvo aqui :) xd 12
+#wilkommen
 
 
 # Configura la conexión a la base de datos
