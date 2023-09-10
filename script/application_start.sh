@@ -1,4 +1,4 @@
-source /home/ubuntu/Workspace/.venv/bin/activate
+source /home/ubuntu/.venv/bin/activate
 
 # Cambia al directorio de tu aplicación Flask.
 cd /home/ubuntu/Workspace
