@@ -50,4 +50,4 @@ def stream():
     return Response(enviar_datos(), content_type='text/event-stream')
 
 if __name__ == '__main__':
-    app.run( port=5000)
+    app.run( host='172.31.39.140',port=3000)
