@@ -2,9 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/Workspace
+    destination: /home/ubuntu
 permissions:
-  - object: /home/ubuntu/Workspace
+  - object: /home/ubuntu
     owner: ubuntu
     group: ubuntu
 hooks:
