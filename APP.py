@@ -2,7 +2,7 @@ from flask import Flask, render_template,request, Response
 import time
 import mysql.connector
 
-#Jesus estuvo aqui :) xd
+#Jesus estuvo aqui :) xd 12
 
 
 # Configura la conexión a la base de datos
