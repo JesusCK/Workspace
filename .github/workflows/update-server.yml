@@ -1,0 +1,21 @@
+name: Update Server
+
+on:
+  push:
+    branches:
+      - main # o el nombre de tu rama principal
+
+jobs:
+  update-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Sync changes to server
+        run: |
+          rsync -avz --delete --exclude=".git" ./ ubuntu@ec2-3-15-85-110.us-east-2.compute.amazonaws.com:/home/ubuntu/Workspace
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        shell: bash
