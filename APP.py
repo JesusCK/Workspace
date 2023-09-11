@@ -22,11 +22,7 @@ def index():
 def enviar_datos():
 
     while True:
-        conexion = mysql.connector.connect(host = "locationdb.col4pixfadqv.us-east-2.rds.amazonaws.com",
-            user = "root",
-            password= "123456789",
-            database= "LocationDB"
-)
+        conexion = mysql.connector.connect(**db_config)
 
         cursor = conexion.cursor()
         # Ejecuta una consulta SQL para obtener el último dato agregado
