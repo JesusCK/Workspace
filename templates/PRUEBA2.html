@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Nova GPS </title>
+    <link rel="stylesheet" type=text/css href="styles.css">
+    <title>Nova GPS</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
-    <h1>Nova GPS </h1>
+    <h1 id="Titulo">Nova GPS</h1>
     <div id="datos-container"></div>
     <style>
-        h1 {
-            text-align: center; /* Centra el texto horizontalmente */
+        
+
+            
+        
+                /* Estilos para el título */
+        #Titulo {
+            font-size: 36px; /* Tamaño de fuente grande para destacar */
+            color: #3498db; /* Color de texto atractivo */
+            text-align: center; /* Centrar el texto en el centro de la página */
+            margin: 20px 0; /* Margen superior e inferior para separar el título de otros elementos */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto para resaltar */
+            font-family: "Arial", sans-serif; /* Fuente personalizada (ajusta según tus preferencias) */
         }
+
+        /* Estilos adicionales para resaltar el título */
+        #Titulo:hover {
+            color: #e74c3c; /* Cambia el color de texto al pasar el mouse (ajusta según tus preferencias) */
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Cambia la sombra de texto al pasar el mouse */
+        }
+
+        /* Estilos para el contenedor centrado */
+        .fechas {
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
+            align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+            
+        }
+
 
         .tabla-datos {
             display: flex; /* Usar flexbox para centrar */
@@ -24,19 +51,176 @@
         }
 
         th, td {
-            border: 1px solid #fff; /* Define el estilo de borde y el color (en este caso, negro) */
+            border: 1px solid #ffffff; /* Define el estilo de borde y el color (en este caso, negro) */
             padding: 5px; /* Añade espaciado interno para hacer que los datos sean más legibles */
             text-align: left; /* Alinea el contenido a la izquierda */
         }
 
         table tr:first-child {
-            background-color: #eeeeee; /* Gris claro */
+            background-color: #e9e9e9; /* Gris claro */
             color: black; /* Texto en negro para legibilidad */
             font-weight: bold; /* Hacer el texto en negrita */
         }
+        /* Estilos base para el botón */
+        #marcar-button {
+            background-color: #3498db;
+            border: none;
+            border-radius: 50px; /* Esto hace que el botón sea redondeado */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            justify-content: center;/* Animación para el color de fondo y la escala al presionar */
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre el botón */
+        #marcar-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilo cuando el usuario presiona el botón */
+        #marcar-button:active {
+            background-color: #2c3e50;
+            transform: scale(0.95); /* Escala el botón al presionar */
+        }
+
+        /* Estilos para la entrada de fecha */
+        #fecha-inicio {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+        #fecha-inicio :hover {
+            border-color: #3498db;
+        }
+
+        /* Estilo cuando la entrada de fecha está enfocada */
+        #fecha-inicio :focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+        }
+
+        #fecha-fin {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+        #fecha-fin :hover {
+            border-color: #3498db;
+        }
+
+        /* Estilo cuando la entrada de fecha está enfocada */
+        #fecha-fin :focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+        }
+        /* Estilos para la entrada de fecha */
+        #hora-inicio {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+        #hora-inicio :hover {
+            border-color: #3498db;
+        }
+
+        /* Estilo cuando la entrada de fecha está enfocada */
+        #hora-inicio :focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+        }
+
+                /* Estilos para la entrada de fecha */
+        #hora-fin{
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+        #hora-fin :hover {
+            border-color: #3498db;
+        }
+
+        /* Estilo cuando la entrada de fecha está enfocada */
+        #hora-fin :focus {
+            border-color: #2ecc71;
+            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+        }
+        #buscar-button {
+            background-color: #3498db;
+            border: none;
+            border-radius: 50px; /* Esto hace que el botón sea redondeado */
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Animación para el color de fondo y la escala al presionar */
+        }
+
+        /* Estilo cuando el usuario pasa el mouse sobre el botón */
+        #buscar-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilo cuando el usuario presiona el botón */
+        #buscar-button:active {
+            background-color: #2c3e50;
+            transform: scale(0.95); /* Escala el botón al presionar */
+        }
+        #botones-container {
+            display: flex;
+        }
+        /* Estilo para el contenedor del mapa */
+        #map {
+            margin: 10px; /* Establece el margen alrededor del contenedor del mapa */
+            border: 5px solid #797979; /* Agrega un borde al contenedor */
+            border-radius: 10px; /* Redondea las esquinas del contenedor */
+            width: 80%; /* Ajusta el ancho del contenedor según tus necesidades */
+            height: 500px; /* Ajusta la altura del contenedor según tus necesidades */
+        }
+        /* Estilos para las etiquetas (labels) */
+        body div label {
+            margin-right: 10px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+        }
+
+        body div input {
+            margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+        }
+        .botones-container{
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
+            align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+            
+        }
+        body div button {
+            margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+        }
+
+
+
+
+
+
 
         /* Personaliza más estilos si es necesario */
     </style>
+    
 
     <div class="tabla-datos">
         <table id="tabla-datos">
@@ -52,9 +236,36 @@
             </tbody>
         </table>
     </div>
+    <br>
+    <br>
+    
+    <div class="fechas">
+        <label for="fecha-inicio">Fecha de inicio:</label>
+        <input type="date" id="fecha-inicio" name="fecha-inicio">
+    
+    
+        <label for="fecha-fin">  Fecha de fin:</label>
+        <input type="date" id="fecha-fin" name="fecha-fin">
+    
+        <label for="hora-inicio">  Hora de inicio:</label>
+        <input type="time" id="hora-inicio" name="hora-inicio">
+    
+        <label for="hora-fin">  Hora de fin:</label>
+        <input type="time" id="hora-fin" name="hora-fin">
+    </div>
+    <br>
+    <div class="botones-container">
 
-    <div id="map" style="width: 1500px; height: 600px; margin: 0 auto;"></div>
-    <button id="marcar-button">Activar/Desactivar Polilínea</button> <!-- Botón para activar/desactivar la polilínea -->
+        
+    <button id="buscar-button">Buscar Ruta</button>
+    <button id="marcar-button">Polilínea</button>
+    </div>
+    <br>
+    <div id="map" style="width: 1250px; height: 350px; margin: 0 auto;"></div>
+    
+    
+
+     <!-- Botón para activar/desactivar la polilínea -->
 
     <script>
         var tabla = document.getElementById('tabla-datos');
@@ -144,7 +355,48 @@
             togglePolyline();
         });
 
+        
+        
+        document.getElementById('buscar-button').addEventListener('click', function () {
+            var fechaInicio = document.getElementById('fecha-inicio').value;
+            var fechaFin = document.getElementById('fecha-fin').value;
+            var horaInicio = document.getElementById('hora-inicio').value;
+            var horaFin = document.getElementById('hora-fin').value;
+            
+            // Realiza una solicitud AJAX para buscar la ruta
+            fetch('/buscar-ruta', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'fecha-inicio': fechaInicio,
+                    'fecha-fin': fechaFin,
+                    'hora-inicio': horaInicio,
+                    'hora-fin': horaFin
+                }),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Limpia la polilínea existente en el mapa
+                if (polyline) {
+                    map.removeLayer(polyline);
+                }
+                
+                // Crea una nueva polilínea con las coordenadas obtenidas
+                var ruta = data.map(coord => [coord.latitud, coord.longitud]);
+                polyline = L.polyline(ruta, { color: 'red' }).addTo(map);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+
+
+
     </script>
 
 </body>
 </html>
+
