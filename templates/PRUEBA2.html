@@ -385,7 +385,7 @@
                 
                 // Crea una nueva polilínea con las coordenadas obtenidas
                 var ruta = data.map(coord => [coord.latitud, coord.longitud]);
-                polyline = L.polyline(ruta, { color: 'red' }).addTo(map);
+                polyline = L.polyline(ruta, { color: 'blue' }).addTo(map);
             })
             .catch(error => {
                 console.error('Error:', error);
