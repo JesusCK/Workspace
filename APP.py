@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, Response
+from flask import Flask, render_template,request, Response, jsonify
 import time
 import mysql.connector
 
@@ -41,6 +41,31 @@ def enviar_datos():
         time.sleep(1)  # Controla la frecuencia de envío de datos
         conexion.close()
         stream()
+
+@app.route('/buscar-ruta', methods=['POST'])
+def buscar_ruta():
+    fecha_inicio = request.form['fecha-inicio']
+    fecha_fin = request.form['fecha-fin']
+    hora_inicio = request.form['hora-inicio']
+    hora_fin = request.form['hora-fin']
+    
+    # Convierte las fechas y horas a un formato compatible con la base de datos
+    fecha_hora_inicio = f'{fecha_inicio} {hora_inicio}:00'
+    fecha_hora_fin = f'{fecha_fin} {hora_fin}:00'
+    
+    # Realiza una consulta SQL para obtener las coordenadas dentro del rango de fecha y hora
+    conexion = mysql.connector.connect(**db_config)
+    cursor = conexion.cursor()
+    consulta = ("SELECT Latitud, Longitud FROM gps "
+                "WHERE Estampa_de_tiempo >= %s AND Estampa_de_tiempo <= %s")
+    cursor.execute(consulta, (fecha_hora_inicio, fecha_hora_fin))
+    coordenadas = cursor.fetchall()
+    conexion.close()
+    
+    # Prepara las coordenadas para enviarlas al frontend
+    coordenadas_json = [{'latitud': lat, 'longitud': lon} for lat, lon in coordenadas]
+    
+    return jsonify(coordenadas_json)
         
 
         
