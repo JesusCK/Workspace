@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request, Response, jsonify
 import time
 import mysql.connector
+from config import db_config
 
 
 
