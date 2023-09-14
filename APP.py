@@ -5,10 +5,9 @@ from config import db_config
 
 
 
-print("Hello word")
 
 
-# Configura la conexión a la base de datos
+
 
 
 app = Flask(__name__)
@@ -74,4 +73,4 @@ def stream():
     return Response(enviar_datos(), content_type='text/event-stream')
 
 if __name__ == '__main__':
-    app.run( host='172.31.39.140',port=3000)
+    app.run( debug=True ,port=80)
