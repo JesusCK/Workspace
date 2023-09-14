@@ -2,7 +2,7 @@ from flask import Flask, render_template,request, Response, jsonify
 import time
 import mysql.connector
 from config import db_config
-
+from hostcd import ht_config
 
 
 
@@ -73,4 +73,4 @@ def stream():
     return Response(enviar_datos(), content_type='text/event-stream')
 
 if __name__ == '__main__':
-    app.run( debug=True ,port=80)
+    app.run(**ht_config)
