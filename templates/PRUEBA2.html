@@ -2,6 +2,8 @@
 <html>
 <head>
     <link rel="stylesheet" type=text/css href="estilos.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Nova GPS </title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     
@@ -20,6 +22,33 @@
 
     <style>
                 /* Estilos para la animación */
+            
+
+/* Estilos para dispositivos con un ancho máximo de 768px (pantallas pequeñas) */
+        @media screen and (max-width: 768px) {
+            .fechas {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .botones-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
+        @media screen and (min-width: 769px) {
+            .fechas {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .botones-container {
+                flex-direction: row;
+                justify-content: center;
+            }
+        }
         .contenedor-animacion {
                 position: fixed;
                 top: 0;
@@ -221,13 +250,7 @@
             display: flex;
         }
         /* Estilo para el contenedor del mapa */
-        #map {
-            margin: 10px; /* Establece el margen alrededor del contenedor del mapa */
-            border: 5px solid #797979; /* Agrega un borde al contenedor */
-            border-radius: 10px; /* Redondea las esquinas del contenedor */
-            width: 80%; /* Ajusta el ancho del contenedor según tus necesidades */
-            height: 500px; /* Ajusta la altura del contenedor según tus necesidades */
-        }
+        
         /* Estilos para las etiquetas (labels) */
         body div label {
             margin-right: 10px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
@@ -246,12 +269,13 @@
             margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
         }
         /* Estilo para el contenedor del mapa */
-        #map {
-            margin: 10px; /* Establece el margen alrededor del contenedor del mapa */
-            border: 5px solid #797979; /* Agrega un borde al contenedor */
-            border-radius: 10px; /* Redondea las esquinas del contenedor */
-            width: 80%; /* Ajusta el ancho del contenedor según tus necesidades */
-            height: 500px; /* Ajusta la altura del contenedor según tus necesidades */
+        #map{
+            margin: 10px auto;
+            border: 5px solid #797979;
+            border-radius: 10px;
+            width: 100%; /* O ajusta el ancho según tus necesidades */
+            max-width: 1250px; /* Ancho máximo para pantallas grandes */
+            height: 350px;
         }
 
 
@@ -308,7 +332,7 @@
     <br>
     <div id="mensaje-error" style="color: red; display: none;"></div>
     <br>
-    <div id="map" style="width: 1250px; height: 350px; margin: 0 auto;"></div>
+    <div id="map" ></div>
     
     
     
