@@ -8,14 +8,40 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
-    <h1 id="Titulo">Nova GPS</h1>
+    
+    <div class="inicio-animado">
+        <h1 id="Titulo">Nova GPS 🌍</h1>
+    </div>
+      
     <div id="datos-container"></div>
+
     <style>
+        /* Definir la animación de entrada */
+               /* Estilos para la animación */
+        
+        @keyframes entrada {
+            from {
+                opacity: 0; /* La página comienza completamente transparente */
+                transform: translateY(-20px); /* La página se desplaza hacia arriba */
+            }
+            to {
+                opacity: 1; /* La página se vuelve completamente visible */
+                transform: translateY(0); /* La página vuelve a su posición original */
+            }
+        }
+
+        /* Aplicar la animación a un elemento (por ejemplo, el contenedor principal) */
+        body {
+            animation: entrada 1s ease-in-out; /* Nombre de la animación, duración, y aceleración */
+        }
+
         
 
         * {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
+
+
         
                 /* Estilos para el título */
         #Titulo {
@@ -213,6 +239,15 @@
         body div button {
             margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
         }
+        /* Estilo para el contenedor del mapa */
+        #map {
+            margin: 10px; /* Establece el margen alrededor del contenedor del mapa */
+            border: 5px solid #797979; /* Agrega un borde al contenedor */
+            border-radius: 10px; /* Redondea las esquinas del contenedor */
+            width: 80%; /* Ajusta el ancho del contenedor según tus necesidades */
+            height: 500px; /* Ajusta la altura del contenedor según tus necesidades */
+        }
+
 
 
 
@@ -256,9 +291,11 @@
         <input type="time" id="hora-fin" name="hora-fin">
     </div>
     <br>
+   
+      
     <div class="botones-container">
 
-        
+    
     <button id="buscar-button">Buscar Ruta</button>
     <button id="marcar-button">Polilínea</button>
     </div>
@@ -433,6 +470,7 @@
                 });
             }
         });
+
 
 
 
