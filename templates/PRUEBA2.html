@@ -278,6 +278,15 @@
             height: 350px;
         }
 
+        .err-cont{
+            background-color:rgb(254, 218, 218);
+            padding: 10px;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 50px;
+            margin: 0 auto;
+        }
+
 
 
 
@@ -310,12 +319,11 @@
         <label for="fecha-inicio">Fecha de inicio:</label>
         <input type="date" id="fecha-inicio" name="fecha-inicio">
     
+        <label for="hora-inicio">  Hora de inicio:</label>
+        <input type="time" id="hora-inicio" name="hora-inicio">
     
         <label for="fecha-fin">  Fecha de fin:</label>
         <input type="date" id="fecha-fin" name="fecha-fin">
-    
-        <label for="hora-inicio">  Hora de inicio:</label>
-        <input type="time" id="hora-inicio" name="hora-inicio">
     
         <label for="hora-fin">  Hora de fin:</label>
         <input type="time" id="hora-fin" name="hora-fin">
@@ -325,12 +333,16 @@
       
     <div class="botones-container">
 
-    
+     <!--<div >Latitud
+        <div class="lat-contenedor" id="la-contenedor">
+            <h3 id="latitud">Latitud</h3>
+        </div>
+    </div>--> 
     <button id="buscar-button">Buscar Ruta</button>
     <button id="marcar-button">Polilínea</button>
     </div>
     <br>
-    <div id="mensaje-error" style="color: red; display: none;"></div>
+    <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;"></div> 
     <br>
     <div id="map" ></div>
     
