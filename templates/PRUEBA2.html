@@ -11,8 +11,8 @@
 </head>
 <body>
     
-    <div class="inicio-animado">
-        <h1 id="Titulo">Nova GPS 🌍 </h1>
+    <div class="inicio-logo">
+        <img src="../static/logofondoblanco.png" width="200" height="200"/>
     </div>
     <div class="contenedor-animacion">
         <img src="../static/logo.png"/>
@@ -87,6 +87,11 @@
             font-family: "Arial", sans-serif; /* Fuente personalizada (ajusta según tus preferencias) */
         }
 
+        .inicio-logo{
+            margin-left: 43%;
+            
+
+        }
         /* Estilos adicionales para resaltar el título */
         #Titulo:hover {
             color: #e74c3c; /* Cambia el color de texto al pasar el mouse (ajusta según tus preferencias) */
@@ -319,13 +324,17 @@
     <div class="fechas">
         <label for="fecha-inicio">Fecha de inicio:</label>
         <input type="date" id="fecha-inicio" name="fecha-inicio">
-
-        <label for="hora-inicio">  Hora de inicio:</label>
-        <input type="time" id="hora-inicio" name="hora-inicio">
     
         <label for="fecha-fin">  Fecha de fin:</label>
         <input type="date" id="fecha-fin" name="fecha-fin">
     
+        
+    </div>
+    <br/>
+    <div class="fechas">
+        <label for="hora-inicio">  Hora de inicio:    </label>
+        <input type="time" id="hora-inicio" name="hora-inicio">
+        &nbsp; &nbsp; &nbsp; &nbsp; 
         <label for="hora-fin">  Hora de fin:</label>
         <input type="time" id="hora-fin" name="hora-fin">
     </div>
@@ -340,10 +349,12 @@
         </div>
     </div>--> 
     <button id="buscar-button">Buscar Ruta</button>
-    <button id="marcar-button">Polilínea</button>
+    <button id="marcar-button">Recorrido en tiempo real</button>
     </div>
     <br>
-    <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;"></div> 
+    <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
+        
+    </div> 
     <br>
     <div id="map" ></div>
     
