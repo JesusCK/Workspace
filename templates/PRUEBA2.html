@@ -476,15 +476,19 @@
             }
             return true;
         }
-        function ValidarFechayHora(fechaInicio,fechaFin, horaInicio,horaFin){
+        function ValidarFechayHora(fechaInicio,fechaFin,horaInicio,horaFin) {
             FechaInicio=new Date(fechaInicio);
             FechaFin=new Date (fechaFin);
-            if ((FechaFin == FechaInicio) && (horaFin < horaInicio)) {
-                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
-                document.getElementById('mensaje-error').style.display = 'block';
-                return false;
+            if (FechaFin === FechaInicio) {
+                if (horaInicio > horaFin){
+                    document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
+                    document.getElementById('mensaje-error').style.display = 'block';
+                    return false;
+                }
+                return true;
             }
             return true;
+            
         }
         
         
