@@ -349,7 +349,7 @@
         </div>
     </div>--> 
     <button id="buscar-button">Buscar Ruta</button>
-    <button id="marcar-button">Recorrido en tiempo real</button>
+    <button id="marcar-button">Recorrido en tiempo</button>
     </div>
     <br>
     <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
@@ -430,7 +430,7 @@
                 if (polyline) {
                     map.removeLayer(polyline);
                 }
-            polyline = L.polyline(polylineCoordinates, { color: '#2596be' }).addTo(map);
+                polyline = L.polyline(polylineCoordinates, { color: 'blue' }).addTo(map);
             }
         };
 
