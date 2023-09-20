@@ -308,7 +308,7 @@
         <table id="tabla-datos">
             <thead>
                 <tr>
-                    <th>Latitude</th>
+                    <th>Latitud</th>
                     <th>Longitud</th>
                     <th>Estampa de tiempo</th>
                 </tr>
@@ -465,14 +465,6 @@
             }
             return true;
         }
-        function validarHora(horaInicio, horaFin) {
-            if (horaFin < horaInicio) {
-                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
-                document.getElementById('mensaje-error').style.display = 'block';
-                return false;
-            }
-            return true;
-        }
 
         function validarFechaM(fechaInicio, fechaFin) {
             FechaInicio=new Date(fechaInicio);
@@ -492,7 +484,7 @@
             var horaInicio = document.getElementById('hora-inicio').value;
             var horaFin = document.getElementById('hora-fin').value;
             
-            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin) && validarHora(horaInicio, horaFin)) {
+            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin)) {
                 // Ocultar el mensaje de error si las fechas son válidas
                 document.getElementById('mensaje-error').style.display = 'none';
 
