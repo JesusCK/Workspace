@@ -476,6 +476,17 @@
             }
             return true;
         }
+        function ValidarFechayHora(fechaInicio,fechaFin, horaInicio,horaFin){
+            FechaInicio=new Date(fechaInicio);
+            FechaFin=new Date (fechaFin);
+            if ((FechaFin == FechaInicio) && (horaFin < horaInicio)) {
+                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
+                document.getElementById('mensaje-error').style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+        
         
         
         document.getElementById('buscar-button').addEventListener('click', function () {
@@ -484,7 +495,7 @@
             var horaInicio = document.getElementById('hora-inicio').value;
             var horaFin = document.getElementById('hora-fin').value;
             
-            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin)) {
+            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin) && ValidarFechayHora(fechaInicio,fechaFin,horaInicio,horaFin)) {
                 // Ocultar el mensaje de error si las fechas son válidas
                 document.getElementById('mensaje-error').style.display = 'none';
 
