@@ -349,7 +349,8 @@
         </div>
     </div>--> 
     <button id="buscar-button">Buscar Ruta</button>
-    <button id="marcar-button">Recorrido en tiempo</button>
+    <button id="marcar-button">Recorrido en tiempo
+    </button>
     </div>
     <br>
     <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
@@ -430,7 +431,7 @@
                 if (polyline) {
                     map.removeLayer(polyline);
                 }
-                polyline = L.polyline(polylineCoordinates, { color: 'blue' }).addTo(map);
+                polyline = L.polyline(polylineCoordinates, { color: '#2f709f' }).addTo(map);
             }
         };
 
@@ -465,14 +466,6 @@
             }
             return true;
         }
-        function validarHora(horaInicio, horaFin) {
-            if (horaFin < horaInicio) {
-                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
-                document.getElementById('mensaje-error').style.display = 'block';
-                return false;
-            }
-            return true;
-        }
 
         function validarFechaM(fechaInicio, fechaFin) {
             FechaInicio=new Date(fechaInicio);
@@ -484,6 +477,17 @@
             }
             return true;
         }
+        function ValidarFechayHora(fechaInicio,fechaFin, horaInicio,horaFin){
+            FechaInicio=new Date(fechaInicio);
+            FechaFin=new Date (fechaFin);
+            if ((FechaFin == FechaInicio) && (horaFin < horaInicio)) {
+                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
+                document.getElementById('mensaje-error').style.display = 'block';
+                return false;
+            }
+            return true;
+        }
+        
         
         
         document.getElementById('buscar-button').addEventListener('click', function () {
@@ -492,7 +496,7 @@
             var horaInicio = document.getElementById('hora-inicio').value;
             var horaFin = document.getElementById('hora-fin').value;
             
-            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin) && validarHora(horaInicio, horaFin)) {
+            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin) && ValidarFechayHora(fechaInicio,fechaFin,horaInicio,horaFin)) {
                 // Ocultar el mensaje de error si las fechas son válidas
                 document.getElementById('mensaje-error').style.display = 'none';
 
@@ -518,7 +522,7 @@
 
                     // Crea una nueva polilínea con las coordenadas obtenidas
                     var ruta = data.map(coord => [coord.latitud, coord.longitud]);
-                    polyline = L.polyline(ruta, { color: 'blue' }).addTo(map);
+                    polyline = L.polyline(ruta, { color: '#2f709f' }).addTo(map);
                 })
                 .catch(error => {
                     console.error('Error:', error);
