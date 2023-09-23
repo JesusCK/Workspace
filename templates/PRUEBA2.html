@@ -10,15 +10,35 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
-    
-    <div class="inicio-logo">
-        <img src="../static/logofondoblanco.png" width="200" height="200"/>
-    </div>
-    <div class="contenedor-animacion">
-        <img src="../static/logo.png"/>
-    </div>
-    
-    <div id="datos-container"></div>
+
+  <div class="tabla-datos">
+    <img src="../static/logofondoblanco.png" width="200" height="200"/>
+    <span class="espacio-horizontal"></span>
+    <table id="tabla-datos">
+        <thead>
+            <tr>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Estampa de tiempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se agregarán filas de datos dinámicamente -->
+        </tbody>
+    </table>
+</div>
+
+
+<div class="sidebar">
+    <a class="active" href="../">Tiempo Real</a>
+    <a href="../historicos">Historial</a>
+  </div> 
+  <br>
+  <div class="botones-container">
+    <button id="marcar-button">Recorrido en tiempo real</button>
+</div>
+<br>
+  <div id="map" ></div>
 
     <style>
                 /* Estilos para la animación */
@@ -26,10 +46,6 @@
 
 /* Estilos para dispositivos con un ancho máximo de 768px (pantallas pequeñas) */
         @media screen and (max-width: 768px) {
-            .fechas {
-                flex-direction: column;
-                align-items: center;
-            }
 
             .botones-container {
                 flex-direction: column;
@@ -39,82 +55,31 @@
 
         /* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
         @media screen and (min-width: 769px) {
-            .fechas {
-                flex-direction: row;
-                justify-content: center;
-            }
 
             .botones-container {
                 flex-direction: row;
                 justify-content: center;
             }
         }
-        .contenedor-animacion {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: #051d40; /* Color de fondo */
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                opacity: 1;
-                transition: opacity 1s ease-in-out, visibility 1s;
-                z-index: 9999; /* Asegura que la animación esté en la parte superior */
-        }
-        /* Definir la animación de entrada */
-               /* Estilos para la animación */
+        .espacio-horizontal {
+           margin-right: 200px; /* Ajusta el valor según tus necesidades */
+         }
         
-        
-
-        
-
         * {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
         }
-
-
         
-                /* Estilos para el título */
-        #Titulo {
-            font-size: 36px; /* Tamaño de fuente grande para destacar */
-            color: #3498db; /* Color de texto atractivo */
-            text-align: center; /* Centrar el texto en el centro de la página */
-            margin: 20px 0; /* Margen superior e inferior para separar el título de otros elementos */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto para resaltar */
-            font-family: "Arial", sans-serif; /* Fuente personalizada (ajusta según tus preferencias) */
-        }
-
-        .inicio-logo{
-            margin-left: 43%;
-            
-
-        }
-        /* Estilos adicionales para resaltar el título */
-        #Titulo:hover {
-            color: #e74c3c; /* Cambia el color de texto al pasar el mouse (ajusta según tus preferencias) */
-            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7); /* Cambia la sombra de texto al pasar el mouse */
-        }
-
         /* Estilos para el contenedor centrado */
-        .fechas {
-            display: flex;
-            justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
-            align-items: center; /* Centrar verticalmente los elementos en el contenedor */
-            
-        }
-
 
         .tabla-datos {
+            
             display: flex; /* Usar flexbox para centrar */
-            justify-content: center; /* Centrar horizontalmente */
+            align-items: center;
         }
 
         table {
             border-collapse: collapse; /* Combina los bordes de las celdas para formar un borde continuo */
-            width: 75%; /* Ajusta el ancho de la tabla según tus necesidades */
+            width: 55%; /* Ajusta el ancho de la tabla según tus necesidades */
         }
 
         th, td {
@@ -152,109 +117,6 @@
             transform: scale(0.95); /* Escala el botón al presionar */
         }
 
-        /* Estilos para la entrada de fecha */
-        #fecha-inicio {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-        
-
-        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
-        #fecha-inicio :hover {
-            border-color: #3498db;
-        }
-
-        /* Estilo cuando la entrada de fecha está enfocada */
-        #fecha-inicio :focus {
-            border-color: #2ecc71;
-            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
-        }
-
-        #fecha-fin {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
-        #fecha-fin :hover {
-            border-color: #3498db;
-        }
-
-        /* Estilo cuando la entrada de fecha está enfocada */
-        #fecha-fin :focus {
-            border-color: #2ecc71;
-            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
-        }
-        /* Estilos para la entrada de fecha */
-        #hora-inicio {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
-        #hora-inicio :hover {
-            border-color: #3498db;
-        }
-
-        /* Estilo cuando la entrada de fecha está enfocada */
-        #hora-inicio :focus {
-            border-color: #2ecc71;
-            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
-        }
-
-                /* Estilos para la entrada de fecha */
-        #hora-fin{
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-        }
-
-        /* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
-        #hora-fin :hover {
-            border-color: #3498db;
-        }
-
-        /* Estilo cuando la entrada de fecha está enfocada */
-        #hora-fin :focus {
-            border-color: #2ecc71;
-            box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
-        }
-        #buscar-button {
-            background-color: #3498db;
-            border: none;
-            border-radius: 50px; /* Esto hace que el botón sea redondeado */
-            color: #fff;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s; /* Animación para el color de fondo y la escala al presionar */
-        }
-
-        /* Estilo cuando el usuario pasa el mouse sobre el botón */
-        #buscar-button:hover {
-            background-color: #2980b9;
-        }
-
-        /* Estilo cuando el usuario presiona el botón */
-        #buscar-button:active {
-            background-color: #2c3e50;
-            transform: scale(0.95); /* Escala el botón al presionar */
-        }
-        #botones-container {
-            display: flex;
-        }
-        /* Estilo para el contenedor del mapa */
         
         /* Estilos para las etiquetas (labels) */
         body div label {
@@ -275,25 +137,44 @@
         }
         /* Estilo para el contenedor del mapa */
         #map{
-            margin: 10px auto;
-            border: 5px solid #797979;
+            margin-left: 250px ;
             border-radius: 10px;
             width: 100%; /* O ajusta el ancho según tus necesidades */
-            max-width: 1250px; /* Ancho máximo para pantallas grandes */
-            height: 350px;
+            max-width: 1150px; /* Ancho máximo para pantallas grandes */
+            height: 450px;
             
         }
 
-        .err-cont{
-            background-color:rgb(254, 218, 218);
-            padding: 10px;
-            max-width: 500px;
-            text-align: center;
-            border-radius: 50px;
-            margin: 0 auto;
-        }
+        /* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
 
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
 
+/* Active/current link */
+.sidebar a.active {
+  background-color: #2980b9;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
 
 
 
@@ -304,59 +185,10 @@
     </style>
     
 
-    <div class="tabla-datos">
-        <table id="tabla-datos">
-            <thead>
-                <tr>
-                    <th>Latitud</th>
-                    <th>Longitud</th>
-                    <th>Estampa de tiempo</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se agregarán filas de datos dinámicamente -->
-            </tbody>
-        </table>
-    </div>
-    <br>
-    <br>
-    
-    <div class="fechas">
-        <label for="fecha-inicio">Fecha de inicio:</label>
-        <input type="date" id="fecha-inicio" name="fecha-inicio">
-    
-        <label for="fecha-fin">  Fecha de fin:</label>
-        <input type="date" id="fecha-fin" name="fecha-fin">
-    
-        
-    </div>
-    <br/>
-    <div class="fechas">
-        <label for="hora-inicio">  Hora de inicio:    </label>
-        <input type="time" id="hora-inicio" name="hora-inicio">
-        &nbsp; &nbsp; &nbsp; &nbsp; 
-        <label for="hora-fin">  Hora de fin:</label>
-        <input type="time" id="hora-fin" name="hora-fin">
-    </div>
-    <br>
-   
-      
-    <div class="botones-container">
 
-     <!--<div >Latitud
-        <div class="lat-contenedor" id="la-contenedor">
-            <h3 id="latitud">Latitud</h3>
-        </div>
-    </div>--> 
-    <button id="buscar-button">Buscar Ruta</button>
-    <button id="marcar-button">Recorrido en tiempo real</button>
-    </div>
-    <br>
-    <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
-        
-    </div> 
-    <br>
-    <div id="map" ></div>
+    
+
+
     
     
     
@@ -430,7 +262,7 @@
                 if (polyline) {
                     map.removeLayer(polyline);
                 }
-                polyline = L.polyline(polylineCoordinates, { color: 'blue' }).addTo(map);
+                polyline = L.polyline(polylineCoordinates, { color: '#2f709f' }).addTo(map);
             }
         };
 
@@ -450,6 +282,7 @@
         document.getElementById('marcar-button').addEventListener('click', function () {
             togglePolyline();
         });
+
         function validarFecha(fecha) {
             var fechaActual = new Date();
             var fechaSeleccionada = new Date(fecha);
@@ -541,10 +374,6 @@
             contenedorAnimacion.style.visibility = 'hidden';
             
         }, 3000);
-
-
-
-
 
     </script>
 
