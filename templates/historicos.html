@@ -346,9 +346,17 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
     var polyline; // Variable para almacenar la polilínea
-    function validarFecha(fecha) {
+
+
+    function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
             var fechaActual = new Date();
-            var fechaSeleccionada = new Date(fecha);
+            var fechaSeleccionada = new Date(fechaInicio);
+            var FechaInicio=new Date(fechaInicio);
+            var FechaFin=new Date (fechaFin);
+            var horaInicialObj = new Date("2000-01-01T" + horaInicio);
+            var horaFinalObj = new Date("2000-01-01T" + horaFin);
+            var fechaInicialObj = new Date(fechaInicio);
+            var fechaFinalObj = new Date(fechaFin);
 
             if (fechaSeleccionada >= fechaActual) {
                 document.getElementById('mensaje-error').innerText = "La fechas deben ser menores que la fecha actual.";
@@ -358,30 +366,27 @@
                 document.getElementById('mensaje-error').innerText = "No hay datos disponibles para fechas anteriores al 6 de septiembre de 2023.";
                 document.getElementById('mensaje-error').style.display = 'block';
                 return false;
-            }
-            return true;
-        }
-
-        function validarFechaM(fechaInicio, fechaFin) {
-            FechaInicio=new Date(fechaInicio);
-            FechaFin=new Date (fechaFin);
-            if (FechaFin < FechaInicio) {
+            } else if (FechaFin < FechaInicio) {
                 document.getElementById('mensaje-error').innerText = "La fecha de fin no puede ser menor que la fecha de inicio.";
                 document.getElementById('mensaje-error').style.display = 'block';
                 return false;
-            }
-            return true;
-        }
-        function ValidarFechayHora(fechaInicio,fechaFin, horaInicio,horaFin){
-            FechaInicio=new Date(fechaInicio);
-            FechaFin=new Date (fechaFin);
-            if ((FechaFin == FechaInicio) && (horaFin < horaInicio)) {
-                document.getElementById('mensaje-error').innerText = "La hora de fin no puede ser menor que la hora de inicio.";
+            } else if ((horaFin === "" ) || (horaInicio === "" )){
+                document.getElementById('mensaje-error').innerText = "Digite un rango de horas.";
                 document.getElementById('mensaje-error').style.display = 'block';
                 return false;
+            }else if (fechaInicialObj.getTime() === fechaFinalObj.getTime()) {
+                // Verificar si la hora inicial es mayor que la hora final
+                if (horaInicialObj.getTime() > horaFinalObj.getTime()) {
+                    // Mostrar un mensaje de error en la página
+                    document.getElementById('mensaje-error').textContent = "La hora inicial no puede ser mayor que la hora final en la misma fecha.";
+                    document.getElementById('mensaje-error').style.display = 'block';
+                    return false;
+                } 
             }
             return true;
-        }
+            
+
+    }
         
         
         
@@ -391,7 +396,7 @@
             var horaInicio = document.getElementById('hora-inicio').value;
             var horaFin = document.getElementById('hora-fin').value;
             
-            if (validarFechaM(fechaInicio,fechaFin) && validarFecha(fechaInicio) && validarFecha(fechaFin) && ValidarFechayHora(fechaInicio,fechaFin,horaInicio,horaFin)) {
+            if (ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin)) {
                 // Ocultar el mensaje de error si las fechas son válidas
                 document.getElementById('mensaje-error').style.display = 'none';
 
