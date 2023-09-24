@@ -50,6 +50,15 @@
     <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
     </div> 
     <br>
+    <!-- Agrega un elemento HTML para mostrar un mensaje cuando no se encuentren fechas -->
+    <div class="fechaContainer">
+        <h3>Fechas en las que pasó por el punto seleccionado:</h3>
+        <ul id="fechas-list"></ul>
+    </div>
+    <div id="mensaje-sin-fechas" style="display: none;">
+        <p>No se encontraron fechas asociadas al punto seleccionado.</p>
+    </div>
+
     <div id="map" ></div>
     
     <style>
@@ -335,6 +344,12 @@
             border-radius: 50px;
             margin: 0 auto;
         }
+        .fechaContainer{
+            display: flex; /* Usar flexbox para centrar */
+            align-items: center;
+            margin-left: 30%;
+
+        }
 
 
     </style>
@@ -430,6 +445,77 @@
                 });
             }
         });
+
+        
+    var selectedPoint = null; // Variable para almacenar el punto seleccionado
+    var marker = L.marker([0, 0]).addTo(map); 
+    // Agrega un controlador de eventos al mapa para capturar las coordenadas cuando el usuario haga clic
+    map.on('click', function (e) {
+        // Captura las coordenadas del punto seleccionado
+        selectedPoint = e.latlng; // e.latlng contiene latitud y longitud
+        var nuevasCoordenadas = [selectedPoint.lat, selectedPoint.lng]
+        marker.setLatLng(nuevasCoordenadas).update();
+       
+        // Muestra las coordenadas en la consola para verificar
+        console.log('Punto seleccionado:', selectedPoint);
+
+        // Llama a la función para buscar fechas cuando se seleccione un punto
+        buscarFechasPunto(selectedPoint);
+    });
+
+    // Función para buscar fechas en el servidor y mostrarlas
+    function buscarFechasPunto(coordenadas) {
+        // Realiza una solicitud AJAX para buscar las fechas
+        fetch('/buscar-fechas-punto', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'latitud': coordenadas.lat,
+                'longitud': coordenadas.lng
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Comprueba si se encontraron fechas
+            if (data.length > 0) {
+                // Muestra las fechas en la página de manera creativa
+                mostrarFechas(data);
+            } else {
+                // Muestra un mensaje indicando que no se encontraron fechas
+                mostrarMensajeSinFechas();
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Función para mostrar las fechas en la página de manera creativa
+    function mostrarFechas(fechas) {
+        var fechasList = document.getElementById('fechas-list');
+        fechasList.innerHTML = ''; // Limpia el contenido anterior
+
+        fechas.forEach(function (fechaObj) {
+            var listItem = document.createElement('li');
+            listItem.textContent = fechaObj.fecha;
+            fechasList.appendChild(listItem);
+        });
+    }
+
+    // Función para mostrar un mensaje en la página cuando no se encuentren fechas
+    function mostrarMensajeSinFechas() {
+        var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
+        mensajeSinFechas.style.display = 'block';
+
+    }
+        function ocultarMensajeSinFechas() {
+        var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
+        mensajeSinFechas.style.display = 'none';
+    }
+
+
 </script>
 
    

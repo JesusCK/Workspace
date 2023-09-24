@@ -63,6 +63,45 @@ def buscar_ruta():
     coordenadas_json = [{'latitud': lat, 'longitud': lon} for lat, lon in coordenadas]
     
     return jsonify(coordenadas_json)
+
+import math
+
+from flask import jsonify
+
+@app.route('/buscar-fechas-punto', methods=['POST'])
+def buscar_fechas_punto():
+    latitud_deseada = request.form['latitud']
+    longitud_deseada = request.form['longitud']
+    radio_km = 0.05  # Puedes ajustar el radio deseado en kilómetros aquí
+
+    # Realiza una consulta SQL para obtener las fechas en las que se pasó por el punto dentro del radio
+    conexion = mysql.connector.connect(**db_config)
+    cursor = conexion.cursor()
+    
+    # Construye la consulta SQL con la fórmula de distancia haversine
+    consulta = (
+        "SELECT Estampa_de_tiempo FROM gps WHERE "
+        "(6371 * ACOS("
+        "COS(RADIANS(%s)) * COS(RADIANS(Latitud)) * COS(RADIANS(Longitud) - RADIANS(%s)) + "
+        "SIN(RADIANS(%s)) * SIN(RADIANS(Latitud))"
+        ")) <= %s"
+    )
+    
+    # Ejecuta la consulta con los parámetros
+    cursor.execute(consulta, (latitud_deseada, longitud_deseada, latitud_deseada, radio_km))
+    
+    fechas= cursor.fetchall()
+    
+    conexion.close()
+
+    # En lugar de retornar fechas como JSON, crea un diccionario con las fechas
+    # Esto es importante porque jsonify espera un diccionario
+    response_data =  [{'fecha': fecha} for fecha in fechas]
+    print(response_data)
+
+    return jsonify(response_data)
+
+
         
 
         
