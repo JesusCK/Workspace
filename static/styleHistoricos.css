@@ -1,0 +1,293 @@
+@media screen and (max-width: 768px) {
+    .fechas {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
+@media screen and (min-width: 769px) {
+    .fechas {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .botones-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.inicio-logo{display: flex;
+}
+.sidebar {
+margin: 0;
+padding: 0;
+width: 200px;
+background-color: #f1f1f1;
+position: fixed;
+height: 100%;
+overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+display: block;
+color: black;
+padding: 16px;
+text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar a.active {
+background-color: #2980b9;
+color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+background-color: #555;
+color: white;
+}
+
+
+@media screen and (max-width: 768px) {
+    .fechas {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .botones-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
+@media screen and (min-width: 769px) {
+    .fechas {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .botones-container {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+.contenedor-animacion {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #051d40; /* Color de fondo */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transition: opacity 1s ease-in-out, visibility 1s;
+        z-index: 9999; /* Asegura que la animación esté en la parte superior */
+}
+/* Definir la animación de entrada */
+       /* Estilos para la animación */
+
+
+* {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+/* Estilos para el contenedor centrado */
+.fechas {
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
+    align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+    
+}
+
+
+.tabla-datos {
+    
+    display: flex; /* Usar flexbox para centrar */
+    align-items: center;
+}
+
+table {
+    border-collapse: collapse; /* Combina los bordes de las celdas para formar un borde continuo */
+    width: 55%; /* Ajusta el ancho de la tabla según tus necesidades */
+}
+
+th, td {
+    border: 1px solid #ffffff; /* Define el estilo de borde y el color (en este caso, negro) */
+    padding: 5px; /* Añade espaciado interno para hacer que los datos sean más legibles */
+    text-align: left; /* Alinea el contenido a la izquierda */
+}
+
+table tr:first-child {
+    background-color: #e9e9e9; /* Gris claro */
+    color: black; /* Texto en negro para legibilidad */
+    font-weight: bold; /* Hacer el texto en negrita */
+}
+/* Estilos base para el botón */
+#buscar-button {
+    background-color: #3498db;
+    border: none;
+    border-radius: 50px; /* Esto hace que el botón sea redondeado */
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    justify-content: center;/* Animación para el color de fondo y la escala al presionar */
+}
+
+/* Estilo cuando el usuario pasa el mouse sobre el botón */
+#buscar-button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilo cuando el usuario presiona el botón */
+#buscar-button:active {
+    background-color: #2c3e50;
+    transform: scale(0.95); /* Escala el botón al presionar */
+}
+
+/* Estilos para la entrada de fecha */
+#fecha-inicio {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+
+/* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+#fecha-inicio :hover {
+    border-color: #3498db;
+}
+
+/* Estilo cuando la entrada de fecha está enfocada */
+#fecha-inicio :focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+}
+
+#fecha-fin {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+#fecha-fin :hover {
+    border-color: #3498db;
+}
+
+/* Estilo cuando la entrada de fecha está enfocada */
+#fecha-fin :focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+}
+/* Estilos para la entrada de fecha */
+#hora-inicio {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+#hora-inicio :hover {
+    border-color: #3498db;
+}
+
+/* Estilo cuando la entrada de fecha está enfocada */
+#hora-inicio :focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+}
+
+        /* Estilos para la entrada de fecha */
+#hora-fin{
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Estilo cuando el usuario pasa el mouse sobre la entrada de fecha */
+#hora-fin :hover {
+    border-color: #3498db;
+}
+
+/* Estilo cuando la entrada de fecha está enfocada */
+#hora-fin :focus {
+    border-color: #2ecc71;
+    box-shadow: 0 0 5px #2ecc71; /* Agrega una sombra cuando está enfocada */
+}
+
+#botones-container {
+    display: flex;
+}
+/* Estilo para el contenedor del mapa */
+
+/* Estilos para las etiquetas (labels) */
+body div label {
+    margin-right: 10px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+}
+
+body div input {
+    margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+}
+.botones-container{
+    display: flex;
+    justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
+    align-items: center; /* Centrar verticalmente los elementos en el contenedor */
+    
+}
+body div button {
+    margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
+}
+/* Estilo para el contenedor del mapa */
+#map{
+    margin-left: 250px ;
+    border-radius: 10px;
+    width: 100%; /* O ajusta el ancho según tus necesidades */
+    max-width: 1150px; /* Ancho máximo para pantallas grandes */
+    height: 450px;
+    
+}
+
+.err-cont{
+    background-color:rgb(254, 218, 218);
+    padding: 10px;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 50px;
+    margin: 0 auto;
+}
+.fechaContainer{
+    display: flex; /* Usar flexbox para centrar */
+    align-items: center;
+    margin-left: 30%;
+
+}
+#mensaje-sin-fechas{
+    display: flex; /* Usar flexbox para centrar */
+    align-items: center;
+    margin-left: 30%;
+}
