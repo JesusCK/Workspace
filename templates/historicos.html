@@ -55,10 +55,11 @@
         <h3>Fechas en las que pasó por el punto seleccionado:</h3>
         <ul id="fechas-list"></ul>
     </div>
+    <br>
     <div id="mensaje-sin-fechas" style="display: none;">
-        <p>No se encontraron fechas asociadas al punto seleccionado.</p>
+        <p> No se encontraron fechas asociadas al punto seleccionado.</p>
     </div>
-
+   
     <div id="map" ></div>
     
     <style>
@@ -350,6 +351,11 @@
             margin-left: 30%;
 
         }
+        #mensaje-sin-fechas{
+            display: flex; /* Usar flexbox para centrar */
+            align-items: center;
+            margin-left: 30%;
+        }
 
 
     </style>
@@ -481,7 +487,11 @@
             // Comprueba si se encontraron fechas
             if (data.length > 0) {
                 // Muestra las fechas en la página de manera creativa
-                mostrarFechas(data);
+                const arrayDate = []
+                for (let i = 0; i < data.length; i++) {
+                     arrayDate[i] = data[i];
+                };
+                mostrarFechas(arrayDate);
             } else {
                 // Muestra un mensaje indicando que no se encontraron fechas
                 mostrarMensajeSinFechas();
@@ -494,6 +504,7 @@
 
     // Función para mostrar las fechas en la página de manera creativa
     function mostrarFechas(fechas) {
+        ocultarMensajeSinFechas();
         var fechasList = document.getElementById('fechas-list');
         fechasList.innerHTML = ''; // Limpia el contenido anterior
 
@@ -506,6 +517,8 @@
 
     // Función para mostrar un mensaje en la página cuando no se encuentren fechas
     function mostrarMensajeSinFechas() {
+        var fechasList = document.getElementById('fechas-list');
+        fechasList.innerHTML = '';
         var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
         mensajeSinFechas.style.display = 'block';
 
