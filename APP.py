@@ -72,7 +72,7 @@ from flask import jsonify
 def buscar_fechas_punto():
     latitud_deseada = request.form['latitud']
     longitud_deseada = request.form['longitud']
-    radio_km = 0.05  # Puedes ajustar el radio deseado en kilómetros aquí
+    radio_km = 0.1  # Puedes ajustar el radio deseado en kilómetros aquí
 
     # Realiza una consulta SQL para obtener las fechas en las que se pasó por el punto dentro del radio
     conexion = mysql.connector.connect(**db_config)
