@@ -90,7 +90,7 @@ document.getElementById('buscar-button').addEventListener('click', function () {
     }
 });
 
-
+var circle = null;
 var selectedPoint = null; // Variable para almacenar el punto seleccionado
 var marker = L.marker([0, 0]).addTo(map); 
 // Agrega un controlador de eventos al mapa para capturar las coordenadas cuando el usuario haga clic
@@ -99,6 +99,19 @@ map.on('click', function (e) {
 selectedPoint = e.latlng; // e.latlng contiene latitud y longitud
 var nuevasCoordenadas = [selectedPoint.lat, selectedPoint.lng]
 marker.setLatLng(nuevasCoordenadas).update();
+if (circle) {
+    map.removeLayer(circle);
+}
+var radioEnMetros = 100;
+
+circle = L.circle(e.latlng, {
+    radius: radioEnMetros,
+    color: 'blue', // Color del borde del círculo
+    fillColor: 'blue', // Color de relleno del círculo
+    fillOpacity: 0.2 // Opacidad del relleno
+}).addTo(map);
+
+circle.bringToBack();
 
 // Muestra las coordenadas en la consola para verificar
 console.log('Punto seleccionado:', selectedPoint);
