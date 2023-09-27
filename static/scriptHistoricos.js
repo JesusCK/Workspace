@@ -7,7 +7,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 var polyline; // Variable para almacenar la polilínea
 
 const arrayDate = [];
-const coordenadasArray=[];
+const latitudArray = [];
+const longitudArray = [];
 
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
@@ -94,7 +95,8 @@ document.getElementById('buscar-button').addEventListener('click', function () {
 
 var circle = null;
 var selectedPoint = null; // Variable para almacenar el punto seleccionado
-var marker = L.marker([0, 0]).addTo(map); 
+var marker = L.marker([0, 0]).addTo(map);
+var marcadorActual = null; 
 // Agrega un controlador de eventos al mapa para capturar las coordenadas cuando el usuario haga clic
 map.on('click', function (e) {
 // Captura las coordenadas del punto seleccionado
@@ -141,7 +143,7 @@ fetch('/buscar-fechas-punto', {
     // Comprueba si se encontraron fechas
     if (data.length > 0) {
         // Muestra las fechas en la página de manera creativa
-        arrayDate.splice(0, arrayDate.length);
+        arrayDate.splice(0, data.length);
         for (let i = 0; i < data.length; i++) {
              arrayDate[i] = data[i];
         };
@@ -171,10 +173,13 @@ function buscarLocalizacionPunto(coordenadas) {
     .then(response => response.json())
     .then(data => {
         // Comprueba si se encontraron fechas
-        coordenadasArray.splice(0, coordenadasArray.length)
+        latitudArray.splice(0, data.length)
+        longitudArray.splice(0, data.length)
         if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {
-                coordenadasArray[i] = [[data[i].Latitud, data[i].Longitud]];
+                latitudArray[i]= parseFloat(data[i].Latitud);
+                longitudArray[i]= parseFloat(data[i].Longitud);
+
             };
             
         } else {
@@ -199,6 +204,17 @@ mensajeSinFechas.style.display = 'none';
 }
 
 
+function actualizarMarcador(indice) {
+
+    if (marcadorActual) {
+     map.removeLayer(marcadorActual);
+    }
+
+// Crear un nuevo marcador y asignarlo a la variable marcadorActual
+    marcadorActual = L.marker([latitudArray[indice],longitudArray[indice]]).addTo(map);
+    marcadorActual.bindPopup(`Coordenadas: (${latitudArray[indice]}, ${longitudArray[indice]})`).openPopup();
+}
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const myRange = document.getElementById("myRange");
@@ -209,5 +225,6 @@ document.addEventListener("DOMContentLoaded", function () {
         myRange.max = arrayDate.length + 2;
         const indice = parseInt(myRange.value);
         valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice].fecha[0])}`;
+        actualizarMarcador(indice);
     });
 });
