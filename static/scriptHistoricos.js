@@ -6,6 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 var polyline; // Variable para almacenar la polilínea
 
+const arrayDate = []
 
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
@@ -138,7 +139,7 @@ fetch('/buscar-fechas-punto', {
     // Comprueba si se encontraron fechas
     if (data.length > 0) {
         // Muestra las fechas en la página de manera creativa
-        const arrayDate = []
+        //const arrayDate = []
         for (let i = 0; i < data.length; i++) {
              arrayDate[i] = data[i];
         };
@@ -178,3 +179,18 @@ function ocultarMensajeSinFechas() {
 var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
 mensajeSinFechas.style.display = 'none';
 }
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const myRange = document.getElementById("myRange");
+    const valorSeleccionado = document.getElementById("valor-seleccionado");
+    
+    // Agrega un event listener para detectar cambios en el slider
+    myRange.addEventListener("input", function () {
+        myRange.max = arrayDate.length - 1;
+        console.log("Hola, esto es un mensaje de impresión en JavaScript.");
+        const indice = parseInt(myRange.value) - 1;
+        valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice].fecha[0])}`;
+    });
+});

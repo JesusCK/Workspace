@@ -291,3 +291,43 @@ body div button {
     align-items: center;
     margin-left: 30%;
 }
+.slidecontainer {
+    text-align: center;
+    width: 50%; 
+    margin: 0 auto;
+}
+  
+.slider {
+    text-align: center;
+    width: 50%;
+    height: 15px;
+    background: #d3d3d3;
+    border-radius: 50px; 
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    margin: 0 auto;
+}
+  
+.slider:hover {
+    opacity: 1;
+  
+}
+  
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #3498db;
+    border-radius: 50px; 
+    cursor: pointer;
+}
+  
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #3498db;
+    cursor: pointer;
+}
