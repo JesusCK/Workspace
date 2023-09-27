@@ -139,7 +139,7 @@ fetch('/buscar-fechas-punto', {
     // Comprueba si se encontraron fechas
     if (data.length > 0) {
         // Muestra las fechas en la página de manera creativa
-        //const arrayDate = []
+        arrayDate.splice(0, arrayDate.length);
         for (let i = 0; i < data.length; i++) {
              arrayDate[i] = data[i];
         };
@@ -188,9 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Agrega un event listener para detectar cambios en el slider
     myRange.addEventListener("input", function () {
-        myRange.max = arrayDate.length - 1;
-        console.log("Hola, esto es un mensaje de impresión en JavaScript.");
-        const indice = parseInt(myRange.value) - 1;
+        myRange.max = arrayDate.length + 2;
+        const indice = parseInt(myRange.value);
         valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice].fecha[0])}`;
     });
 });
