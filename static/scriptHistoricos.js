@@ -119,6 +119,7 @@ console.log('Punto seleccionado:', selectedPoint);
 
 // Llama a la función para buscar fechas cuando se seleccione un punto
 buscarFechasPunto(selectedPoint);
+buscarLocalizacionPunto(selectedPoint);
 });
 
 // Función para buscar fechas en el servidor y mostrarlas
@@ -143,7 +144,7 @@ fetch('/buscar-fechas-punto', {
         for (let i = 0; i < data.length; i++) {
              arrayDate[i] = data[i];
         };
-        mostrarFechas(arrayDate);
+        ocultarMensajeSinFechas();
     } else {
         // Muestra un mensaje indicando que no se encontraron fechas
         mostrarMensajeSinFechas();
@@ -154,23 +155,37 @@ fetch('/buscar-fechas-punto', {
 });
 }
 
-// Función para mostrar las fechas en la página de manera creativa
-function mostrarFechas(fechas) {
-ocultarMensajeSinFechas();
-var fechasList = document.getElementById('fechas-list');
-fechasList.innerHTML = ''; // Limpia el contenido anterior
-
-fechas.forEach(function (fechaObj) {
-    var listItem = document.createElement('li');
-    listItem.textContent = fechaObj.fecha;
-    fechasList.appendChild(listItem);
-});
+function buscarLocalizacionPunto(coordenadas) {
+    // Realiza una solicitud AJAX para buscar las fechas
+    fetch('/buscar-localizacion-punto', {
+        method: 'POST',
+        body: new URLSearchParams({
+            'latitud': coordenadas.lat,
+            'longitud': coordenadas.lng
+        }),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Comprueba si se encontraron fechas
+        if (data.length > 0) {
+            
+            const coordenadasArray = [data[0].Latitud, data[0].Longitud];
+        
+        } else {
+            // Muestra un mensaje indicando que no se encontraron fechas
+            
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 
 // Función para mostrar un mensaje en la página cuando no se encuentren fechas
 function mostrarMensajeSinFechas() {
-var fechasList = document.getElementById('fechas-list');
-fechasList.innerHTML = '';
 var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
 mensajeSinFechas.style.display = 'block';
 
