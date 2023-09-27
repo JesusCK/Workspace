@@ -6,7 +6,8 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 var polyline; // Variable para almacenar la polilínea
 
-const arrayDate = []
+const arrayDate = [];
+const coordenadasArray=[];
 
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
@@ -170,10 +171,12 @@ function buscarLocalizacionPunto(coordenadas) {
     .then(response => response.json())
     .then(data => {
         // Comprueba si se encontraron fechas
+        coordenadasArray.splice(0, coordenadasArray.length)
         if (data.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+                coordenadasArray[i] = [[data[i].Latitud, data[i].Longitud]];
+            };
             
-            const coordenadasArray = [data[0].Latitud, data[0].Longitud];
-        
         } else {
             // Muestra un mensaje indicando que no se encontraron fechas
             
