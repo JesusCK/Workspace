@@ -101,7 +101,39 @@ def buscar_fechas_punto():
 
     return jsonify(response_data)
 
+@app.route('/buscar-localizacion-punto', methods=['POST'])
+def buscar_localizacion_punto():
+    latitud_deseada = request.form['latitud']
+    longitud_deseada = request.form['longitud']
+    radio_km = 0.1  # Puedes ajustar el radio deseado en kilómetros aquí
 
+    # Realiza una consulta SQL para obtener las coordenadas (Latitud y Longitud) en las que se pasó por el punto dentro del radio
+    conexion = mysql.connector.connect(**db_config)
+    cursor = conexion.cursor()
+
+    # Construye la consulta SQL con la fórmula de distancia haversine y selecciona Latitud y Longitud
+    consulta = (
+        "SELECT Latitud, Longitud FROM gps WHERE "
+        "(6371 * ACOS("
+        "COS(RADIANS(%s)) * COS(RADIANS(Latitud)) * COS(RADIANS(Longitud) - RADIANS(%s)) + "
+        "SIN(RADIANS(%s)) * SIN(RADIANS(Latitud))"
+        ")) <= %s"
+    )
+
+    # Ejecuta la consulta con los parámetros
+    cursor.execute(consulta, (latitud_deseada, longitud_deseada, latitud_deseada, radio_km))
+
+    # Recupera las coordenadas (Latitud y Longitud) como una lista de tuplas
+    coordenadas = cursor.fetchall()
+
+    conexion.close()
+
+    # En lugar de retornar coordenadas como JSON, crea un vector con las coordenadas
+    coordenadas_vector = [{'Latitud': lat, 'Longitud': lon} for lat, lon in coordenadas]
+    
+    print(coordenadas_vector)
+
+    return jsonify(coordenadas_vector)
         
 
         
