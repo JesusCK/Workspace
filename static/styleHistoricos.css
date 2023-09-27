@@ -279,6 +279,15 @@ body div button {
     text-align: center;
     border-radius: 50px;
     margin: 0 auto;
+
+}
+#mensaje-sin-fechas{
+    background-color:rgb(254, 218, 218);
+    padding: 10px;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 50px;
+    margin: 0 auto;  
 }
 .fechaContainer{
     display: flex; /* Usar flexbox para centrar */
