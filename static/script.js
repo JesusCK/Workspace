@@ -2,7 +2,7 @@ var tabla = document.getElementById('tabla-datos');
 var maxFilas = 2; // Número máximo de filas a mostrar
 var conta = 0;
 var polyline; // Variable para almacenar la polilínea
-var isDrawing = false; // Variable para verificar si se está dibujando
+var isDrawing = true; // Variable para verificar si se está dibujando
 
 var map = L.map('map').setView([10.0, -74.0], 13);
 map.setView([10.0, -74.0]);
@@ -76,6 +76,7 @@ function togglePolyline() {
     if (!isDrawing) {
         if (polyline) {
             map.removeLayer(polyline);
+            isDrawing=!isDrawing
         }
     }
 }
