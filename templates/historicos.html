@@ -31,7 +31,7 @@
             <label for="hora-fin">  Hora de fin:</label>
             <input type="time" id="hora-fin" name="hora-fin">
         </div>
-        <br>
+        
 
     </div>
     
@@ -51,17 +51,19 @@
     </div> 
     
     <!-- Agrega un elemento HTML para mostrar un mensaje cuando no se encuentren fechas -->
-
+    <br>
     <div id="mensaje-sin-fechas" style="color: rgb(216, 0, 0); display: none;text-align: center;">
         <p> No se encontraron fechas asociadas al punto seleccionado.</p>
     </div>
-   
-    <div id="map" ></div>
-    
+    <br>
     <div class="slidecontainer">
         <input type="range" min="" max="100" value="0" class="slider" id="myRange">
         <p id="valor-seleccionado">Fecha</p>
     </div>
+   
+    <div id="map" ></div>
+    
+
     
     
 <script src="../static/scriptHistoricos.js"></script>
