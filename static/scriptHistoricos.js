@@ -101,11 +101,15 @@ var marcadorActual = null;
 map.on('click', function (e) {
 // Captura las coordenadas del punto seleccionado
 selectedPoint = e.latlng; // e.latlng contiene latitud y longitud
-var nuevasCoordenadas = [selectedPoint.lat, selectedPoint.lng]
-marker.setLatLng(nuevasCoordenadas).update();
+//var nuevasCoordenadas = [selectedPoint.lat, selectedPoint.lng]
+//marker.setLatLng(nuevasCoordenadas).update();
 if (circle) {
     map.removeLayer(circle);
 }
+if (marcadorActual) {
+    map.removeLayer(marcadorActual);
+}
+
 var radioEnMetros = 100;
 
 circle = L.circle(e.latlng, {
@@ -183,6 +187,14 @@ function buscarLocalizacionPunto(coordenadas) {
             };
             
         } else {
+            if (marcadorActual) {
+                map.removeLayer(marcadorActual);
+            }
+           
+
+            latitudArray.splice(0, data.length)
+            longitudArray.splice(0, data.length)
+         
             // Muestra un mensaje indicando que no se encontraron fechas
             
         }
@@ -207,12 +219,12 @@ mensajeSinFechas.style.display = 'none';
 function actualizarMarcador(indice) {
 
     if (marcadorActual) {
-     map.removeLayer(marcadorActual);
+        map.removeLayer(marcadorActual);
     }
 
 // Crear un nuevo marcador y asignarlo a la variable marcadorActual
     marcadorActual = L.marker([latitudArray[indice],longitudArray[indice]]).addTo(map);
-    marcadorActual.bindPopup(`Coordenadas: (${latitudArray[indice]}, ${longitudArray[indice]})`).openPopup();
+    
 }
 
 

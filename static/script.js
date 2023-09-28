@@ -13,7 +13,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 // Agrega un marcador inicial
 var marker = L.marker([10.0, -74.0]).addTo(map);
-marker.bindPopup("Marcador").openPopup();
+
 
 // Crear un arreglo para almacenar las coordenadas marcadas
 var polylineCoordinates = [];
@@ -56,7 +56,7 @@ source.onmessage = function (event) {
     var nuevasCoordenadas = [primeraParte, segundaParte]
     marker.setLatLng(nuevasCoordenadas).update();
     map.setView([primeraParte, segundaParte]);
-    marker.bindPopup("Coordenadas: " + primeraParte + ", " + segundaParte).openPopup();
+    
 
     // Agregar coordenadas a la polilínea si se está dibujando
     if (isDrawing) {
