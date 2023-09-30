@@ -190,7 +190,7 @@ function buscarLocalizacionPunto(coordenadas) {
             if (marcadorActual) {
                 map.removeLayer(marcadorActual);
             }
-           
+            
 
             latitudArray.splice(0, data.length)
             longitudArray.splice(0, data.length)
@@ -215,6 +215,13 @@ var mensajeSinFechas = document.getElementById('mensaje-sin-fechas');
 mensajeSinFechas.style.display = 'none';
 }
 
+const customIcon = L.divIcon({
+    className: 'custom-marker',
+    // Otras opciones de estilo si es necesario
+    iconSize: [32, 32], // Tamaño del icono [ancho, alto]
+    iconAnchor: [16, 32], // Anclaje del icono [horizontal, vertical]
+    popupAnchor: [0, -32] // Posición de la punta del icono en relación con su punto de anclaje
+});
 
 function actualizarMarcador(indice) {
 
@@ -222,8 +229,8 @@ function actualizarMarcador(indice) {
         map.removeLayer(marcadorActual);
     }
 
-// Crear un nuevo marcador y asignarlo a la variable marcadorActual
-    marcadorActual = L.marker([latitudArray[indice],longitudArray[indice]]).addTo(map);
+    // Crear un nuevo marcador y asignarlo a la variable marcadorActual
+    marcadorActual = L.marker([latitudArray[indice],longitudArray[indice]], { icon: customIcon }).addTo(map);
     
 }
 
