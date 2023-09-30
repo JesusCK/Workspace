@@ -269,6 +269,7 @@ body div button {
     width: 100%; /* O ajusta el ancho según tus necesidades */
     max-width: 1400px; /* Ancho máximo para pantallas grandes */
     height: 500px;
+    border: 2px solid #000; /* Añade un borde para resaltar el área del mapa */
     
 }
 
