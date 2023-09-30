@@ -92,13 +92,16 @@ body div input {
 body div button {
     margin-right: 20px; /* Espacio a la derecha de las etiquetas (ajusta según tus necesidades) */
 }
+
+
 /* Estilo para el contenedor del mapa */
 #map{
     margin-left: 250px ;
     border-radius: 10px;
     width: 100%; /* O ajusta el ancho según tus necesidades */
-    max-width: 1150px; /* Ancho máximo para pantallas grandes */
-    height: 450px;
+    max-width: 1200px; /* Ancho máximo para pantallas grandes */
+    height: 500px;
+    border: 2px solid #000; /* Añade un borde para resaltar el área del mapa */
     
 }
 
