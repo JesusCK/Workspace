@@ -340,3 +340,10 @@ body div button {
     background: #3498db;
     cursor: pointer;
 }
+
+.custom-marker {
+    background-image: url('../static/motocicleta.png');
+    width: 32px; /* Ancho deseado */
+    height: 32px; /* Alto deseado */
+    background-size: cover; /* Ajustar el tamaño de la imagen al contenedor */
+}
