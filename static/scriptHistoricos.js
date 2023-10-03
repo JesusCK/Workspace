@@ -10,6 +10,17 @@ const arrayDate = [];
 const latitudArray = [];
 const longitudArray = [];
 
+const legend = L.control({ position: 'bottomright' });
+legend.onAdd = function (map) {
+    const div = L.DomUtil.create('div', 'info legend');
+    // Puedes personalizar el contenido de la leyenda aquí, por ejemplo:
+    div.innerHTML = '<h4>Leyenda</h4>' +
+        '<p>Esta es una polilínea</p>';
+    return div;
+};
+
+// Agregar la leyenda al mapa
+legend.addTo(map);
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
     var fechaSeleccionada = new Date(fechaInicio);
@@ -93,7 +104,16 @@ document.getElementById('buscar-button').addEventListener('click', function () {
 
             // Crea una nueva polilínea con las coordenadas obtenidas
             var ruta = data.map(coord => [coord.latitud, coord.longitud]);
-            polyline = L.polyline(ruta, { color: '#2f709f' }).addTo(map);
+            polyline = L.polyline(ruta, { color: '#4c2882', weight:5 }).addTo(map);
+            var decorator = L.polylineDecorator(polyline, {
+                patterns: [
+                    {
+                        offset: 0,
+                        repeat: '100px', // Espacio entre las leyendas
+                        symbol: L.Symbol.arrowHead({ pixelSize: 10, pathOptions: { color: 'red' } })
+                    }
+                ]
+            }).addTo(map);
             map.fitBounds(polyline.getBounds());
         })
         .catch(error => {
@@ -285,3 +305,14 @@ function mostrarSlider() {
     myRange.style.display = "block";
     valorSeleccionado.style.display = "block";
 }
+
+const miDialogo = document.getElementById('mi-dialogo');
+const cerrarDialogoButton = document.getElementById('cerrar-dialogo');
+const abrirDialogoButton = document.getElementById('abrirAyuda');
+
+cerrarDialogoButton.addEventListener('click', () => {
+    miDialogo.close();
+});
+abrirDialogoButton.addEventListener('click',()=>{
+    miDialogo.showModal()
+});

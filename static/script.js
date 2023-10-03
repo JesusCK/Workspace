@@ -64,7 +64,7 @@ source.onmessage = function (event) {
         if (polyline) {
             map.removeLayer(polyline);
         }
-        polyline = L.polyline(polylineCoordinates, { color: '#2f709f' }).addTo(map);
+        polyline = L.polyline(polylineCoordinates, { color: '#4c2882', weight:5}).addTo(map);
     }
 };
 
