@@ -349,18 +349,4 @@ body div button {
     background-size: cover; /* Ajustar el tamaño de la imagen al contenedor */
 }
 
-body::after {
-    content: "";
-    background-image: url('../static/fondominimalista.png');
-    background-size: cover;
-    background-position: center; /* Centra la imagen de fondo */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    opacity: 0.3; /* Cambia la opacidad del fondo (0.5 = 50%) */
-    position: absolute; /* Posiciona el elemento de fondo absolutamente */
-    top: 0; /* Coloca el elemento de fondo en la parte superior de la página */
-    left: 0; /* Coloca el elemento de fondo en la parte izquierda de la página */
-    width: 100%; /* Establece el ancho al 100% del cuerpo */
-    height: 100%; /* Establece la altura al 100% del cuerpo */
-    z-index: -1; /* Coloca el elemento de fondo detrás de otros elementos */
 
-}
