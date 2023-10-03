@@ -111,7 +111,7 @@ color: white;
     display: flex;
     justify-content: center; /* Centrar horizontalmente los elementos en el contenedor */
     align-items: center; /* Centrar verticalmente los elementos en el contenedor */
-    
+    margin-left: 400px;
 }
 
 
@@ -353,6 +353,7 @@ dialog {
     border-radius: 5px;
     height: 200px;
     position: absolute;
+    z-index: 99999;
 }
 
 h2 {

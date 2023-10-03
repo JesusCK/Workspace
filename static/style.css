@@ -90,6 +90,7 @@
     
     display: flex; /* Usar flexbox para centrar */
     align-items: center;
+    margin-left: 150px;
 }
 
 table {
@@ -111,6 +112,7 @@ table tr:first-child {
 /* Estilos base para el botón */
 #marcar-button {
     background-color: #3498db;
+    margin-right: 250px;
     border: none;
     border-radius: 50px; /* Esto hace que el botón sea redondeado */
     color: #fff;
