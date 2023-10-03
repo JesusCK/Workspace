@@ -7,6 +7,30 @@
     .botones-container {
         flex-direction: column;
         align-items: center;
+        margin-left: 300px;
+    }
+    .tabla-datos {
+    
+        display: flex; /* Usar flexbox para centrar */
+        align-items: center;
+        margin-right: 150px;
+    }
+    
+    table {
+        border-collapse: collapse; /* Combina los bordes de las celdas para formar un borde continuo */
+        width: 55%; /* Ajusta el ancho de la tabla según tus necesidades */
+    }
+    
+    th, td {
+        border: 1px solid #ffffff; /* Define el estilo de borde y el color (en este caso, negro) */
+        padding: 5px; /* Añade espaciado interno para hacer que los datos sean más legibles */
+        text-align: left; /* Alinea el contenido a la izquierda */
+    }
+    
+    table tr:first-child {
+        background-color: #e9e9e9; /* Gris claro */
+        color: black; /* Texto en negro para legibilidad */
+        font-weight: bold; /* Hacer el texto en negrita */
     }
     }
 
@@ -21,7 +45,9 @@
     }
     .sidebar a {float: left;}
     div.content {margin-left: 0;}
-
+    .espacio-horizontal {
+        margin-right: 200px; /* Ajusta el valor según tus necesidades */
+      }
     #marcar-button {
         background-color: #3498db;
         border: none;
@@ -61,6 +87,7 @@
         padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
+        margin-left: 300px;
         transition: background-color 0.3s, transform 0.2s;
         justify-content: center;/* Animación para el color de fondo y la escala al presionar */
     }
