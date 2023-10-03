@@ -10,17 +10,9 @@ const arrayDate = [];
 const latitudArray = [];
 const longitudArray = [];
 
-const legend = L.control({ position: 'bottomright' });
-legend.onAdd = function (map) {
-    const div = L.DomUtil.create('div', 'info legend');
-    // Puedes personalizar el contenido de la leyenda aquí, por ejemplo:
-    div.innerHTML = '<h4>Leyenda</h4>' +
-        '<p>Esta es una polilínea</p>';
-    return div;
-};
+
 
 // Agregar la leyenda al mapa
-legend.addTo(map);
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
     var fechaSeleccionada = new Date(fechaInicio);
