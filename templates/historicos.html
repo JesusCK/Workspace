@@ -6,10 +6,21 @@
 
     <title>Historial</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.polylineDecorator@1.0.11/leaflet.polylineDecorator.js"></script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
+    <dialog id="mi-dialogo" open>
+        <h2>Bienvenido!</h2>
+        <p>Para hacer una consulta de historicos debe ingresar 
+            el rango de fechas en el cual desea conocer la información.</p>
+        <p>Si desea conocer las fechas en las que su vehiculo pasó por un lugar determinado,
+            puede saberlo dandole click en el mapa.
+        </p>
+        <button id="cerrar-dialogo">Cerrar</button>
+    </dialog>
 
     <div class="inicio-logo">
         <img src="../static/logofondoblanco.png" width="200" height="200"/>
@@ -30,6 +41,8 @@
             
             <label for="hora-fin">  Hora de fin:</label>
             <input type="time" id="hora-fin" name="hora-fin">
+
+            <button id="abrirAyuda">?</button>
         </div>
         
 
