@@ -12,13 +12,7 @@
 
 
 /* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
-@media screen and (min-width: 769px) {
 
-    .botones-container {
-        flex-direction: row;
-        justify-content: center;
-    }
-}
 @media screen and (max-width: 700px) {
     .sidebar {
       width: 100%;
@@ -27,6 +21,29 @@
     }
     .sidebar a {float: left;}
     div.content {margin-left: 0;}
+
+    #marcar-button {
+        background-color: #3498db;
+        border: none;
+        border-radius: 50px; /* Esto hace que el botón sea redondeado */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        justify-content: center;/* Animación para el color de fondo y la escala al presionar */
+    }
+    
+    /* Estilo cuando el usuario pasa el mouse sobre el botón */
+    #marcar-button:hover {
+        background-color: #2980b9;
+    }
+    
+    /* Estilo cuando el usuario presiona el botón */
+    #marcar-button:active {
+        background-color: #2c3e50;
+        transform: scale(0.95); /* Escala el botón al presionar */
+    }
   }
   
   /* On screens that are less than 400px, display the bar vertically, instead of horizontally */
@@ -34,6 +51,28 @@
     .sidebar a {
       text-align: center;
       float: none;
+    }
+    #marcar-button {
+        background-color: #3498db;
+        border: none;
+        border-radius: 50px; /* Esto hace que el botón sea redondeado */
+        color: #fff;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        justify-content: center;/* Animación para el color de fondo y la escala al presionar */
+    }
+    
+    /* Estilo cuando el usuario pasa el mouse sobre el botón */
+    #marcar-button:hover {
+        background-color: #2980b9;
+    }
+    
+    /* Estilo cuando el usuario presiona el botón */
+    #marcar-button:active {
+        background-color: #2c3e50;
+        transform: scale(0.95); /* Escala el botón al presionar */
     }
   }
 .espacio-horizontal {
