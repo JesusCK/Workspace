@@ -1,11 +1,11 @@
-var map = L.map('map').setView([10.0, -74.0], 5);
-map.setView([10.0, -74.0]);
+var map = L.map('map').setView([10.96508884429932, -74.83829498291016], 12);
+map.setView([10.96508884429932, -74.83829498291016]);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 var polyline; // Variable para almacenar la polilínea
-
+ocultarSlider()
 const arrayDate = [];
 const latitudArray = [];
 const longitudArray = [];
@@ -13,6 +13,7 @@ const longitudArray = [];
 function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
     var fechaActual = new Date();
     var fechaSeleccionada = new Date(fechaInicio);
+    var fechaSeleccionada2 = new Date(fechaFin);
     var FechaInicio=new Date(fechaInicio);
     var FechaFin=new Date (fechaFin);
     var horaInicialObj = new Date("2000-01-01T" + horaInicio);
@@ -24,11 +25,11 @@ function ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin){
         document.getElementById('mensaje-error').innerText = "La fechas deben ser menores que la fecha actual.";
         document.getElementById('mensaje-error').style.display = 'block';
         return false;
-    } else if (fechaSeleccionada < new Date("2023-09-06")) {
-        document.getElementById('mensaje-error').innerText = "No hay datos disponibles para fechas anteriores al 6 de septiembre de 2023.";
+    }else if (fechaSeleccionada2 >= fechaActual) {
+        document.getElementById('mensaje-error').innerText = "La fechas deben ser menores que la fecha actual.";
         document.getElementById('mensaje-error').style.display = 'block';
         return false;
-    } else if (FechaFin < FechaInicio) {
+    }else if (FechaFin < FechaInicio) {
         document.getElementById('mensaje-error').innerText = "La fecha de fin no puede ser menor que la fecha de inicio.";
         document.getElementById('mensaje-error').style.display = 'block';
         return false;
@@ -57,10 +58,18 @@ document.getElementById('buscar-button').addEventListener('click', function () {
     var fechaFin = document.getElementById('fecha-fin').value;
     var horaInicio = document.getElementById('hora-inicio').value;
     var horaFin = document.getElementById('hora-fin').value;
+
+
     
     if (ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin)) {
         // Ocultar el mensaje de error si las fechas son válidas
         document.getElementById('mensaje-error').style.display = 'none';
+        FI=new Date(fechaInicio);
+        if (FI < new Date("2023-09-06")){
+            fechaInicio="2023-09-06";
+            document.getElementById('mensaje-error').innerText = "No hay datos disponibles para fechas anteriores al 6 de septiembre de 2023.";
+            document.getElementById('mensaje-error').style.display = 'block';
+        }
 
         // Realiza la solicitud AJAX para buscar la ruta
         fetch('/buscar-ruta', {
@@ -180,6 +189,8 @@ function buscarLocalizacionPunto(coordenadas) {
         latitudArray.splice(0, data.length)
         longitudArray.splice(0, data.length)
         if (data.length > 0) {
+            reinicializarSlider()
+            mostrarSlider()
             for (let i = 0; i < data.length; i++) {
                 latitudArray[i]= parseFloat(data[i].Latitud);
                 longitudArray[i]= parseFloat(data[i].Longitud);
@@ -187,6 +198,7 @@ function buscarLocalizacionPunto(coordenadas) {
             };
             
         } else {
+            ocultarSlider()
             if (marcadorActual) {
                 map.removeLayer(marcadorActual);
             }
@@ -235,15 +247,41 @@ function actualizarMarcador(indice) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
+function reinicializarSlider() {
     const myRange = document.getElementById("myRange");
     const valorSeleccionado = document.getElementById("valor-seleccionado");
     
+    // Configura los valores del slider y muestra los elementos
+    myRange.value = 0; // Reinicializa el valor del slider
+    myRange.max = arrayDate.length + 2;
+    myRange.style.display = "block";
+    valorSeleccionado.style.display = "block";
+
     // Agrega un event listener para detectar cambios en el slider
     myRange.addEventListener("input", function () {
-        myRange.max = arrayDate.length + 2;
         const indice = parseInt(myRange.value);
         valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice].fecha[0])}`;
         actualizarMarcador(indice);
     });
-});
+}
+
+// Llama a reinicializarSlider() cuando se cumpla la condición deseada
+
+
+
+function ocultarSlider() {
+    const myRange = document.getElementById("myRange");
+    const valorSeleccionado = document.getElementById("valor-seleccionado");
+
+    // Oculta el slider y el valor seleccionado
+    myRange.style.display = "none";
+    valorSeleccionado.style.display = "none";
+}
+function mostrarSlider() {
+    const myRange = document.getElementById("myRange");
+    const valorSeleccionado = document.getElementById("valor-seleccionado");
+
+    // Establece el estilo de visualización de nuevo a "block" para mostrar el slider y el valor seleccionado
+    myRange.style.display = "block";
+    valorSeleccionado.style.display = "block";
+}
