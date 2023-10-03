@@ -12,6 +12,16 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
+
+
+    
+
+    <div class="sidebar">
+        <img src="../static/logofondoblanco.png" width="200" height="200"/>
+        <a  href="../">Tiempo Real</a>
+        <a class="active"href="../historicos">Historial</a>
+    </div>
+    <br> 
     <dialog id="mi-dialogo" open>
         <h2>Bienvenido!</h2>
         <p>Para hacer una consulta de historicos debe ingresar 
@@ -22,8 +32,9 @@
         <button id="cerrar-dialogo">Cerrar</button>
     </dialog>
 
+   
     <div class="inicio-logo">
-        <img src="../static/logofondoblanco.png" width="200" height="200"/>
+        
         
         <div class="fechas">
             <label for="fecha-inicio">Fecha de inicio:</label>
@@ -33,9 +44,7 @@
     
         
             
-        </div>
-        <br/>
-        <div class="fechas">
+
             <label for="fecha-fin">  Fecha de fin:</label>
             <input type="date" id="fecha-fin" name="fecha-fin">
             
@@ -47,15 +56,8 @@
         
 
     </div>
-    
-
-    <div class="sidebar">
-        <a  href="../">Tiempo Real</a>
-        <a class="active"href="../historicos">Historial</a>
-    </div> 
    
-   
-
+    <br>
     <div class="botones-container">
         <button id="buscar-button">Buscar Ruta</button>
     </div>
@@ -76,6 +78,7 @@
     <br>
 
     <div id="map" ></div>
+  
     
 
    

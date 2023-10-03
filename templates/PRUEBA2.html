@@ -11,8 +11,18 @@
 </head>
 <body>
 
-<div class="tabla-datos">
+
+
+
+<div class="sidebar">
     <img src="../static/logofondoblanco.png" width="200" height="200"/>
+    <a class="active" href="../">Tiempo Real</a>
+    <a href="../historicos">Historial</a>
+  </div> 
+  <br>
+  
+<div class="tabla-datos">
+    
     <span class="espacio-horizontal"></span>
     <table id="tabla-datos">
         <thead>
@@ -27,14 +37,8 @@
         </tbody>
     </table>
 </div>
-
-
-<div class="sidebar">
-    <a class="active" href="../">Tiempo Real</a>
-    <a href="../historicos">Historial</a>
-  </div> 
-  <br>
-  <div class="botones-container">
+<br>
+<div class="botones-container">
     <button id="marcar-button">Limpiar</button>
 </div>
 <br>
