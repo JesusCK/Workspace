@@ -9,6 +9,15 @@
         margin-left: 280px;
         
     }
+    .err-cont{
+        background-color:rgb(254, 218, 218);
+        padding: 10px;
+        max-width: 500px;
+        text-align: center;
+        border-radius: 50px;
+        margin-left: 400px;
+    
+    }
 }
 
 /* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
@@ -23,6 +32,15 @@
         margin-left: 400px;
        
        
+    }
+    .err-cont{
+        background-color:rgb(254, 218, 218);
+        padding: 10px;
+        max-width: 500px;
+        text-align: center;
+        border-radius: 50px;
+        margin-left: 400px;
+    
     }
 }
 * {
@@ -71,6 +89,15 @@ color: white;
         flex-direction: column;
         align-items: center;
     }
+    .err-cont{
+        background-color:rgb(254, 218, 218);
+        padding: 10px;
+        max-width: 500px;
+        text-align: center;
+        border-radius: 50px;
+        margin-left: 400px;
+    
+    }
 }
 
 /* Estilos para dispositivos con un ancho mínimo de 769px (pantallas medianas y grandes) */
@@ -83,6 +110,15 @@ color: white;
     .botones-container {
         flex-direction: row;
         justify-content: center;
+    }
+    .err-cont{
+        background-color:rgb(254, 218, 218);
+        padding: 10px;
+        max-width: 500px;
+        text-align: center;
+        border-radius: 50px;
+        margin-left: 400px;
+    
     }
 }
 
