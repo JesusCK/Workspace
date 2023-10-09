@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova GPS</title>
+    <style>
+    
+        /* Estilos generales */
+        body {
+        
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            background-image: url('../static/background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center; /* Centra la imagen de fondo */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            top: 0; /* Coloca el elemento de fondo en la parte superior de la página */
+            left: 0; /* Coloca el elemento de fondo en la parte izquierda de la página */
+            width: 100%; /* Establece el ancho al 100% del cuerpo */
+            height: 100%; 
+            filter: brightness(40%); 
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-bottom: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 0px;
+            color: #f0f0f0; /* Cambia el color del texto a gris oscuro (#333) */
+            transition: color 0.3s; /* Agrega una transición de color de 0.3 segundos */
+            cursor: pointer; /* Cambia el cursor cuando pasa sobre el h1 */
+            font-size: 70px; /* Aumenta el tamaño de la fuente a 36px */
+        
+        }
+
+        /* Cambia el color del texto cuando el cursor pasa sobre el h1 */
+        h1:hover {
+            color: #007bff;
+            
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 0;
+        }
+        
+        .col-md-4 {
+            flex: 1;
+            max-width: 33.33%; /* Para que ocupen el 33.33% del ancho cada uno */
+            
+        }
+        
+        /* Barra superior */
+        .navbar {
+            height: cover;
+            color: #fff; /* Texto blanco */
+            text-align: right;
+            padding: 10px 0;
+            margin-right: 10px;
+        }
+
+        /* Botón "Contact Us" */
+        #contactBtn {
+            background-color: #000; 
+            color: #fff; 
+            padding: 5px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            
+        }
+        
+        #Btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 50px; 
+        }
+
+        /* Cuadro de texto (inicialmente oculto) */
+        #contactBox {
+            display: none;
+            background-color: #000; /* Fondo blanco */
+            color: #fff; /* Texto negro */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            position: absolute;
+            top: 50px; /* Posición debajo de la barra superior */
+            left: 50%; /* Centrado horizontalmente */
+            transform: translateX(-50%);
+            z-index: 1; /* Para que esté encima de otros elementos */
+        }
+
+        /* Estilo para el botón "Cerrar" del cuadro de texto */
+        .closeBtn {
+            background-color: #ff0000; /* Fondo gris claro */
+            color: #fff; /* Texto negro */
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 100px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+                /* Cuadro de texto (inicialmente oculto) */
+        #infoBox {
+            display: none;
+            background-color: #000; /* Fondo blanco */
+            color: #fff; /* Texto negro */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            position: absolute;
+            top: 50px; /* Posición debajo de la barra superior */
+            left: 50%; /* Centrado horizontalmente */
+            transform: translateX(-50%);
+            z-index: 1; /* Para que esté encima de otros elementos */
+            text-align: left;
+        }
+
+        /* Estilos de los recuadros */
+        .card {
+            background-color: #f0f0f0;
+            border: 1px solid #000;
+            margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px; 
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+            height: 100%;
+        }
+
+        .card-title {
+            font-size: 20px;
+        }
+
+        .card-text {
+            font-size: 16px;
+        }
+
+        .card-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Estilos de los botones */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 50px; 
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media screen and (max-width: 768px) {
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Barra superior -->
+    <div class="navbar">
+        <button id="contactBtn">Contact Us</button> <!-- Botón "Contact Us" a la derecha -->
+    </div>
+
+    <!-- Cuadro de texto (inicialmente oculto) -->
+    <div id="contactBox">
+        <button class="closeBtn" onclick="closeContactBox()">x</button>
+        <p>Correos electrónicos de contacto:</p>
+        <ul>
+            <li>ajrondon@uninorte.edu.co</li>
+            <li>gomezmedina@uninorte.edu.co</li>
+            <li>quirozdj@uninorte.edu.co</li>
+        </ul>
+    </div>
+    <!-- Script para mostrar/ocultar el cuadro de texto -->
+    <script>
+        function closeContactBox() {
+            document.getElementById('contactBox').style.display = 'none';
+        }
+
+        document.getElementById('contactBtn').addEventListener('click', function () {
+            document.getElementById('contactBox').style.display = 'block';
+        });
+    </script>
+    
+    <div class="container">
+    <h1>Nova GPS</h1> 
+        <div class="row">
+        
+        <!-- Recuadro inicial -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">¡Hola, usuario!</h5>
+                        <img src="../static/inicio.png" alt="Imagen 2" class="card-image">
+                        <p class="card-text">Este es el recuadro de inicio con otro mensaje.</p>
+                        <button id="Btn">?</button>
+                            <div id="infoBox">
+				<button class="closeBtn" onclick="closeInfoBox()">x</button>
+				<p>Esperemos que te guste nuestro sitio web! Aquí puedes:</p>
+				<ul>
+				    <li>Rastrear objetos moviles</li>
+				    <li>Conocer su posición en tiempo real</li>
+				    <li>Realizar consultas sobre su historial de ubicación</li>
+				</ul>
+			    </div>
+			    <!-- Script para mostrar/ocultar el cuadro de texto -->
+			    <script>
+				function closeInfoBox() {
+				    document.getElementById('infoBox').style.display = 'none';
+				}
+
+				document.getElementById('Btn').addEventListener('click', function () {
+				    document.getElementById('infoBox').style.display = 'block';
+				});
+			    </script>
+    
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Recuadro 1 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Seguimiento en tiempo real</h5>
+                        <img src="../static/TR.png" alt="Imagen 1" class="card-image">
+                        <p class="card-text">Este es el recuadro 1 con un mensaje.</p>
+                        <a href="../tiempo-real" class="btn">Ir a seguimiento en tiempo real</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recuadro 2 -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Busqueda de historicos</h5>
+                        <img src="../static/HS.png" alt="Imagen 2" class="card-image">
+                        <p class="card-text">Este es el recuadro 2 con otro mensaje.</p>
+                        <a href="../historicos" class="btn">Ir a historicos</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>
