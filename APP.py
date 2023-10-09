@@ -5,15 +5,14 @@ from config import db_config
 from hostcd import ht_config
 
 
-
-
-
-
-
 app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('InicioWP.html')
+
+@app.route('/tiempo-real')
+def index1():
     return render_template('PRUEBA2.html')
 
 @app.route('/historicos')
