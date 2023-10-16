@@ -5,11 +5,46 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 var polyline; // Variable para almacenar la polilínea
-ocultarSlider()
-const arrayDate = [];
-const latitudArray = [];
-const longitudArray = [];
 
+var arrayDate = [];
+var latitudArray = [];
+var longitudArray = [];
+
+function ocultarSlider() {
+    const myRange = document.getElementById("myRange");
+    const valorSeleccionado = document.getElementById("valor-seleccionado");
+
+    // Oculta el slider y el valor seleccionado
+    myRange.style.display = "none";
+    valorSeleccionado.style.display = "none";
+}
+function ocultarSlider2() {
+    const myRange2 = document.getElementById("myRange2");
+    const rangeMeasurement = document.getElementById("rangeMeasurement");
+
+    // Oculta el slider y el valor seleccionado
+    myRange2.style.display = "none";
+    rangeMeasurement.style.display = "none";
+}
+function mostrarSlider() {
+    const myRange = document.getElementById("myRange");
+    const valorSeleccionado = document.getElementById("valor-seleccionado");
+
+    // Establece el estilo de visualización de nuevo a "block" para mostrar el slider y el valor seleccionado
+    myRange.style.display = "block";
+    valorSeleccionado.style.display = "block";
+}
+function mostrarSlider2() {
+    const myRange2 = document.getElementById("myRange2");
+    const rangeMeasurement = document.getElementById("rangeMeasurement");
+
+    // Establece el estilo de visualización de nuevo a "block" para mostrar el slider y el valor seleccionado
+    myRange2.style.display = "block";
+    rangeMeasurement.style.display = "block";
+}
+
+ocultarSlider()
+ocultarSlider2()
 
 
 // Agregar la leyenda al mapa
@@ -63,6 +98,7 @@ document.getElementById('buscar-button').addEventListener('click', function () {
     var horaFin = document.getElementById('hora-fin').value;
 
 
+
     
     if (ValidationDate(fechaInicio,fechaFin,horaInicio,horaFin)) {
         // Ocultar el mensaje de error si las fechas son válidas
@@ -97,23 +133,14 @@ document.getElementById('buscar-button').addEventListener('click', function () {
             // Crea una nueva polilínea con las coordenadas obtenidas
             var ruta = data.map(coord => [coord.latitud, coord.longitud]);
             polyline = L.polyline(ruta, { color: '#4c2882', weight:5 }).addTo(map);
-            var decorator = L.polylineDecorator(polyline, {
-                patterns: [
-                    {
-                        offset: 0,
-                        repeat: '100px', // Espacio entre las leyendas
-                        symbol: L.Symbol.arrowHead({ pixelSize: 10, pathOptions: { color: 'red' } })
-                    }
-                ]
-            }).addTo(map);
             map.fitBounds(polyline.getBounds());
         })
         .catch(error => {
             console.error('Error:', error);
         });
     }
-});
-
+const myRange2 = document.getElementById("myRange2");
+const rangeMeasurement = document.getElementById("rangeMeasurement");
 var circle = null;
 var selectedPoint = null; // Variable para almacenar el punto seleccionado
 var marker = L.marker([0, 0]).addTo(map);
@@ -131,65 +158,57 @@ if (marcadorActual) {
     map.removeLayer(marcadorActual);
 }
 
-var radioEnMetros = 100;
 
 circle = L.circle(e.latlng, {
-    radius: radioEnMetros,
     color: 'blue', // Color del borde del círculo
     fillColor: 'blue', // Color de relleno del círculo
     fillOpacity: 0.2 // Opacidad del relleno
 }).addTo(map);
+
+// Configura los valores del slider y muestra los elementos
+var radioEnMetros = document.getElementById("myRange2").value;
+circle.setRadius(radioEnMetros)
+
+// Agrega un event listener para detectar cambios en el slider
+myRange2.addEventListener("input", function () {
+    const indiceM = parseInt(myRange2.value);
+    circle.setRadius(indiceM)
+    circle.redraw()
+    rangeMeasurement.textContent = `El rango en metros seleccionado es : ${indiceM}`;
+});
+
+
+
 
 circle.bringToBack();
 
 // Muestra las coordenadas en la consola para verificar
 console.log('Punto seleccionado:', selectedPoint);
 
+var radioEnKilometros= radioEnMetros/1000;
+
 // Llama a la función para buscar fechas cuando se seleccione un punto
-buscarFechasPunto(selectedPoint);
-buscarLocalizacionPunto(selectedPoint);
+buscarFechasPunto(selectedPoint, fechaInicio, fechaFin, horaInicio, horaFin, radioEnKilometros);
 });
+
+
+
+
+
 
 // Función para buscar fechas en el servidor y mostrarlas
-function buscarFechasPunto(coordenadas) {
-// Realiza una solicitud AJAX para buscar las fechas
-fetch('/buscar-fechas-punto', {
-    method: 'POST',
-    body: new URLSearchParams({
-        'latitud': coordenadas.lat,
-        'longitud': coordenadas.lng
-    }),
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
-})
-.then(response => response.json())
-.then(data => {
-    // Comprueba si se encontraron fechas
-    if (data.length > 0) {
-        // Muestra las fechas en la página de manera creativa
-        arrayDate.splice(0, data.length);
-        for (let i = 0; i < data.length; i++) {
-             arrayDate[i] = data[i];
-        };
-        ocultarMensajeSinFechas();
-    } else {
-        // Muestra un mensaje indicando que no se encontraron fechas
-        mostrarMensajeSinFechas();
-    }
-})
-.catch(error => {
-    console.error('Error:', error);
-});
-}
-
-function buscarLocalizacionPunto(coordenadas) {
+function buscarFechasPunto(coordenadas,fechaInicio,fechaFin,horaInicio,horaFin,radioEnKilometros) {
     // Realiza una solicitud AJAX para buscar las fechas
-    fetch('/buscar-localizacion-punto', {
+    fetch('/buscar-fechas-punto', {
         method: 'POST',
         body: new URLSearchParams({
             'latitud': coordenadas.lat,
-            'longitud': coordenadas.lng
+            'longitud': coordenadas.lng,
+            'fecha-inicio': fechaInicio,
+            'fecha-fin': fechaFin,
+            'hora-inicio': horaInicio,
+            'hora-fin': horaFin,
+            'radio': radioEnKilometros
         }),
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
@@ -198,35 +217,36 @@ function buscarLocalizacionPunto(coordenadas) {
     .then(response => response.json())
     .then(data => {
         // Comprueba si se encontraron fechas
-        latitudArray.splice(0, data.length)
-        longitudArray.splice(0, data.length)
         if (data.length > 0) {
+            console.log(data.length)
+            mostrarSlider2()
             reinicializarSlider()
-            mostrarSlider()
+            // Muestra las fechas en la página de manera creativa
+            arrayDate=[];
+            longitudArray=[];
+            latitudArray=[];
             for (let i = 0; i < data.length; i++) {
-                latitudArray[i]= parseFloat(data[i].Latitud);
-                longitudArray[i]= parseFloat(data[i].Longitud);
-
+                arrayDate.push(data[i].fecha);
+                latitudArray.push (data[i].Latitud)
+                longitudArray.push (data[i].Longitud)
+                console.log(arrayDate[i])
+                console.log(latitudArray[i], longitudArray[i])
             };
-            
+            console.log(arrayDate.length)
+            ocultarMensajeSinFechas();
+            reinicializarSlider()
         } else {
-            ocultarSlider()
-            if (marcadorActual) {
-                map.removeLayer(marcadorActual);
-            }
-            
-
-            latitudArray.splice(0, data.length)
-            longitudArray.splice(0, data.length)
-         
             // Muestra un mensaje indicando que no se encontraron fechas
-            
+            ocultarSlider();
+            mostrarMensajeSinFechas();
         }
     })
     .catch(error => {
         console.error('Error:', error);
     });
 }
+
+
 
 // Función para mostrar un mensaje en la página cuando no se encuentren fechas
 function mostrarMensajeSinFechas() {
@@ -265,14 +285,15 @@ function reinicializarSlider() {
     
     // Configura los valores del slider y muestra los elementos
     myRange.value = 0; // Reinicializa el valor del slider
-    myRange.max = arrayDate.length + 2;
+    myRange.max = arrayDate.length -1;
     myRange.style.display = "block";
     valorSeleccionado.style.display = "block";
 
     // Agrega un event listener para detectar cambios en el slider
     myRange.addEventListener("input", function () {
         const indice = parseInt(myRange.value);
-        valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice].fecha[0])}`;
+        console.log(indice)
+        valorSeleccionado.textContent = `Fecha: ${JSON.stringify(arrayDate[indice])}`;
         actualizarMarcador(indice);
     });
 }
@@ -281,22 +302,9 @@ function reinicializarSlider() {
 
 
 
-function ocultarSlider() {
-    const myRange = document.getElementById("myRange");
-    const valorSeleccionado = document.getElementById("valor-seleccionado");
 
-    // Oculta el slider y el valor seleccionado
-    myRange.style.display = "none";
-    valorSeleccionado.style.display = "none";
-}
-function mostrarSlider() {
-    const myRange = document.getElementById("myRange");
-    const valorSeleccionado = document.getElementById("valor-seleccionado");
 
-    // Establece el estilo de visualización de nuevo a "block" para mostrar el slider y el valor seleccionado
-    myRange.style.display = "block";
-    valorSeleccionado.style.display = "block";
-}
+});//
 
 const miDialogo = document.getElementById('mi-dialogo');
 const cerrarDialogoButton = document.getElementById('cerrar-dialogo');
@@ -308,3 +316,6 @@ cerrarDialogoButton.addEventListener('click', () => {
 abrirDialogoButton.addEventListener('click',()=>{
     miDialogo.showModal()
 });
+
+
+

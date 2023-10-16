@@ -7,7 +7,6 @@
     <title>Historial</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.polylineDecorator@1.0.11/leaflet.polylineDecorator.js"></script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
@@ -38,18 +37,18 @@
         
         <div class="fechas">
             <label for="fecha-inicio">Fecha de inicio:</label>
-            <input type="date" id="fecha-inicio" name="fecha-inicio">
+            <input type="date" id="fecha-inicio" name="fecha-inicio" value="2023-10-15">
             <label for="hora-inicio">  Hora de inicio:    </label>
-            <input type="time" id="hora-inicio" name="hora-inicio">
+            <input type="time" id="hora-inicio" name="hora-inicio" value="01:00">
     
         
             
 
             <label for="fecha-fin">  Fecha de fin:</label>
-            <input type="date" id="fecha-fin" name="fecha-fin">
+            <input type="date" id="fecha-fin" name="fecha-fin" value="2023-10-15">
             
             <label for="hora-fin">  Hora de fin:</label>
-            <input type="time" id="hora-fin" name="hora-fin">
+            <input type="time" id="hora-fin" name="hora-fin" value="17:00">
 
             <button id="abrirAyuda">?</button>
         </div>
@@ -65,10 +64,18 @@
     <div class="err-cont" id="mensaje-error" style="color: rgb(216, 0, 0); display: none;text-align: center;">
     </div> 
 
+
+    <div class="slidecontainer">
+        <input type="range" min="50" max="200" value="0" class="slider" id="myRange2">
+        <p id="rangeMeasurement"> Elija el radio de busqueda </p>
+    </div>
+
+
     <div class="slidecontainer">
         <input type="range" min="" max="100" value="0" class="slider" id="myRange">
         <p id="valor-seleccionado">Desplace la barra para poder observar las fechas</p>
     </div>
+
     
     <!-- Agrega un elemento HTML para mostrar un mensaje cuando no se encuentren fechas -->
     <br>
