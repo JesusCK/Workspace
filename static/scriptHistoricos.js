@@ -158,7 +158,7 @@ if (marcadorActual) {
     map.removeLayer(marcadorActual);
 }
 
-
+mostrarSlider2()
 circle = L.circle(e.latlng, {
     color: 'blue', // Color del borde del círculo
     fillColor: 'blue', // Color de relleno del círculo
@@ -180,15 +180,28 @@ myRange2.addEventListener("input", function () {
 
 
 
-circle.bringToBack();
 
-// Muestra las coordenadas en la consola para verificar
-console.log('Punto seleccionado:', selectedPoint);
+
+circle.bringToBack();
+myRange2.addEventListener("change", function(){
+    var radioMetros=parseInt(myRange2.value);
+    var radioEnKilometros= radioMetros/1000;
+
+// Llama a la función para buscar fechas cuando se seleccione un punto
+    buscarFechasPunto(selectedPoint, fechaInicio, fechaFin, horaInicio, horaFin, radioEnKilometros);
+
+    
+});
 
 var radioEnKilometros= radioEnMetros/1000;
 
 // Llama a la función para buscar fechas cuando se seleccione un punto
 buscarFechasPunto(selectedPoint, fechaInicio, fechaFin, horaInicio, horaFin, radioEnKilometros);
+
+// Muestra las coordenadas en la consola para verificar
+console.log('Punto seleccionado:', selectedPoint);
+
+
 });
 
 
