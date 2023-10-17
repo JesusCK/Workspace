@@ -201,6 +201,7 @@ background-color: #f1f1f1;
 position: fixed;
 height: 100%;
 overflow: auto;
+z-index: 9999999;
 }
 
 /* Sidebar links */
