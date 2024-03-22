@@ -1,9 +1,8 @@
 from flask import Flask, render_template,request, Response, jsonify
-import time
-import mysql.connector
 from config import db_config
 from hostcd import ht_config
-
+import mysql.connector
+import time
 
 app = Flask(__name__)
 
